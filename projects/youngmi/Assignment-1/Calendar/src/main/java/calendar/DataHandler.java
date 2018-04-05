@@ -128,7 +128,7 @@ public class DataHandler {
     public List<CalDay> getApptRange(GregorianCalendar firstDay, 
             GregorianCalendar lastDay) throws DateOutOfRangeException {
 
-            //Internal Diagnositic Messages turned on when true
+            //Internal Diagnostic Messages turned on when true
             boolean diagnose = false;
             
             //If the data handler isn't initialized return null

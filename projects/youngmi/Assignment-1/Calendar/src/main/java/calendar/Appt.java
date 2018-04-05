@@ -337,7 +337,7 @@ public class Appt{
         return recurDays;
     }    
     /**
-     * Checks to see if an appointment recurrs or not
+     * Checks to see if an appointment recurs or not
      * @return True if the appointment does occur more than once
      */
     public boolean isRecurring() {
