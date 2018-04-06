@@ -127,7 +127,7 @@ public class Appt{
      *  the constants provided by Gregorian Calendar to set the month. 
      * @param startYear The year the appointment starts on.
      * @param title The title or caption to give the appointment
-     * @param description The appointment's details
+     * @param description of the appointment's details
      * @param emailAddress An e-mail address associated with the appointment
      */
     public Appt(int startDay, int startMonth, int startYear,
@@ -362,7 +362,7 @@ public class Appt{
 		    System.err.println("\tThis appointment is not valid");
 		}
 		//Inherent bug - misplaced comma
-        String day= this.getStartMonth()+"/"+this.getStartDay()+"/"+this.getStartYear() + " at ";
+        String day= this.getStartMonth()+"/"+this.getStartMonth()+"/"+this.getStartYear() + " at ";
         return "\t"+ day +  this.representationApp()  + " ," +  getTitle()+ ", "+  getDescription()+"\n";
     }
 
