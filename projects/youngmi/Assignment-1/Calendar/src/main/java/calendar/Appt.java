@@ -344,7 +344,7 @@ public class Appt{
      * @return a printable representation of this appointment
      */
     private String representationApp(){
-        String half = (getStartHour() > 11) ? "pm" : "am";
+        String half = (getStartHour() > 12) ? "pm" : "am";
         int printableHour = getStartHour();
         if (printableHour > 11)
         {
@@ -361,6 +361,7 @@ public class Appt{
 		if (!getValid()) {
 		    System.err.println("\tThis appointment is not valid");
 		}
+		//Inherent bug - misplaced comma
         String day= this.getStartMonth()+"/"+this.getStartDay()+"/"+this.getStartYear() + " at ";
         return "\t"+ day +  this.representationApp()  + " ," +  getTitle()+ ", "+  getDescription()+"\n";
     }
