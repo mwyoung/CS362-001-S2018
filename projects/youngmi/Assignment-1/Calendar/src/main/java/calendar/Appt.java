@@ -350,8 +350,7 @@ public class Appt{
         {
             printableHour -= 12;
         }
-        if (printableHour == 0)
-        {
+        if (printableHour == 0){
             printableHour = 12;
         }
         String representationApp= printableHour +":"+ getStartMinute() + half;
