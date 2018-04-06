@@ -1,25 +1,15 @@
 package calendar;
 
-
 /*
  * CalDay.java
- *
  */
 
-
-
 import java.util.*;
-
-
-
-
 
 /**
  * Stores all of the appointments of a single calendar day. It also
  * has some useful calendar-related abilities, such as the ability
  * to create a new calendar day that is incremented by a day.
- * 
- * 
  */
 public class CalDay {
 
@@ -88,7 +78,6 @@ public class CalDay {
 		    getAppts().add(appt);
 		}
 	}
-
 	
 	/**
 	 * @return True if this is an initalized CalDay object
@@ -247,15 +236,12 @@ public class CalDay {
 				
 				//create the string containing a data summary
 				buffer += hour + ":" + minString + meridianString + " ";
-
 			}
-				buffer += appointment.getTitle()+ " ";
-				buffer += appointment.getDescription()+ " ";
-				
-				
+			
+			buffer += appointment.getTitle()+ " ";
+			buffer += appointment.getDescription()+ " ";		
         }
-        
-        
+             
         return buffer;
     }
 }

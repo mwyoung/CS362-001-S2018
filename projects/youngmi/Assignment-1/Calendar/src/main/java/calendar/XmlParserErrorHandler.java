@@ -10,7 +10,6 @@ import org.xml.sax.*;
 /**
 * This error handler is to report warnings and errors with the 
 * XML Parser. It is modeled after Java's sample code.
-*
 **/
 
 public class XmlParserErrorHandler implements ErrorHandler {

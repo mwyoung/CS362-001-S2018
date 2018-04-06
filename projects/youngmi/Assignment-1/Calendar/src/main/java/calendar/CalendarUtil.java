@@ -4,7 +4,6 @@
 
 package calendar;
 
-
 /**
 *	A class containing utility methods that a calendar might
 *	need to function
