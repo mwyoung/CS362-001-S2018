@@ -1,6 +1,6 @@
 bin
 target
-run
+run.sh
 old
 *.swp
 .metadata
@@ -9,3 +9,4 @@ old
 calendar.xml
 calendar2.xml
 .settings
+clean.sh
