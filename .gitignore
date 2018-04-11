@@ -10,3 +10,5 @@ calendar.xml
 calendar2.xml
 .settings
 .gitignore
+run.sh
+clean.sh
