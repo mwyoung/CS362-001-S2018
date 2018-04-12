@@ -127,7 +127,7 @@ public class Appt{
      *  the constants provided by Gregorian Calendar to set the month. 
      * @param startYear The year the appointment starts on.
      * @param title The title or caption to give the appointment
-     * @param description The appointment's details
+     * @param description of the appointment's details
      * @param emailAddress An e-mail address associated with the appointment
      */
     public Appt(int startDay, int startMonth, int startYear,
@@ -165,7 +165,7 @@ public class Appt{
 		else if (startYear <= 0)
 			this.valid = false;
 		else {
-			int NumDaysInMonth = CalendarUtil.NumDaysInMonth(startYear, startMonth - 1);
+			int NumDaysInMonth = CalendarUtil.NumDaysInMonth(startYear, startMonth);
 			if (startDay < 1 || startDay > NumDaysInMonth)
 				this.valid = false;
 			else
@@ -343,27 +343,27 @@ public class Appt{
      * description.
      * @return a printable representation of this appointment
      */
-    private String represntationApp(){
-        String half = (getStartHour() > 11) ? "pm" : "am";
+    private String representationApp(){
+        String half = (getStartHour() > 12) ? "pm" : "am";
         int printableHour = getStartHour();
         if (printableHour > 11)
         {
             printableHour -= 12;
         }
-        if (printableHour == 0)
-        {
+        if (printableHour == 0){
             printableHour = 12;
         }
-        String represntationApp= printableHour +":"+ getStartMinute() + half;
-        return represntationApp;
+        String representationApp= printableHour +":"+ getStartMinute() + half;
+        return representationApp;
     	
     }
     public String toString(){
 		if (!getValid()) {
 		    System.err.println("\tThis appointment is not valid");
 		}
-        String day= this.getStartMonth()+"/"+this.getStartDay()+"/"+this.getStartYear() + " at ";
-        return "\t"+ day +  this.represntationApp()  + " ," +  getTitle()+ ", "+  getDescription()+"\n";
+		//Inherent bug - misplaced comma
+        String day= this.getStartMonth()+"/"+this.getStartMonth()+"/"+this.getStartYear() + " at ";
+        return "\t"+ day +  this.representationApp()  + " ," +  getTitle()+ ", "+  getDescription()+"\n";
     }
 
 }
