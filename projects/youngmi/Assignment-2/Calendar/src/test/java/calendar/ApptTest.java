@@ -11,6 +11,7 @@ public class ApptTest {
 
 	@Test(timeout = 4000)
 	public void test00() throws Throwable {
+		//hour, minute, day, month, year, title, desc, email
 		Appt appt0 = new Appt(15, 30, 9, 14, 2018, "Birthday Party", "This is my birthday party", "xyz@gmail.com");
 		String string0 = appt0.toString();
 		assertEquals("Recur By", 2, appt0.getRecurBy());
@@ -36,6 +37,34 @@ public class ApptTest {
 		assertFalse("False Occur 1", appt0.isOn(10, 14, 2018));
 		assertFalse("False Occur 2", appt0.isOn(9, 15, 2018));
 		assertFalse("False Occur 3", appt0.isOn(9, 14, 2019));
+		appt0.setValid();
+		assertTrue("Is Valid", appt0.getValid());
+		//test recurrence
+		int[] recurDaysArr= {2,3,4};
+		//days, by_, increment, number
+		appt0.setRecurrence(recurDaysArr, Appt.RECUR_BY_WEEKLY, 2, Appt.RECUR_NUMBER_FOREVER);
+		assertEquals("Recur Num", Appt.RECUR_NUMBER_FOREVER, appt0.getRecurNumber());
+		assertEquals("Recur By", Appt.RECUR_BY_WEEKLY, appt0.getRecurBy());
+		assertEquals("Recur Days", recurDaysArr, appt0.getRecurDays());
+		appt0.setValid();
+		assertTrue("Recur Valid", appt0.getValid());
 	}
-	
+	/*
+	@Test(timeout = 4000)
+	public void test02() throws Throwable {
+		Appt appt0 = new Appt(15, 30, 9, 14, 2018, "Birthday Party", "This is my birthday party", "xyz@gmail.com");
+		assertEquals("Min", 15, appt0.getStartMinute());
+		assertEquals("Hour", 30, appt0.getStartHour());
+		assertEquals("Day", 9, appt0.getStartDay());
+		assertEquals("Month", 14, appt0.getStartMonth());
+		assertEquals("Year", 2018, appt0.getStartYear());
+		assertEquals("Title", "Birthday Party", appt0.getTitle());
+		assertEquals("Desc", "This is my birthday party", appt0.getDescription());
+		assertEquals("Email", "xyz@gmail.com", appt0.getEmailAddress());
+		assertTrue("Time", appt0.hasTimeSet());
+		assertTrue("True Occur", appt0.isOn(9, 14, 2018));
+		assertFalse("False Occur 1", appt0.isOn(10, 14, 2018));
+		assertFalse("False Occur 2", appt0.isOn(9, 15, 2018));
+		assertFalse("False Occur 3", appt0.isOn(9, 14, 2019));
+	}*/
 }
