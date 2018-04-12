@@ -12,3 +12,4 @@ calendar2.xml
 .gitignore
 run.sh
 clean.sh
+makefile
