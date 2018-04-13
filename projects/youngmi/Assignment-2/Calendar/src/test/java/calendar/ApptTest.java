@@ -8,7 +8,31 @@ import calendar.Appt;
 //import calendar.CalendarUtil;
 
 public class ApptTest {
-
+	//test CalendarUtil
+	@Test(timeout = 4000)
+	public void test_CU() throws Throwable {
+		int days = CalendarUtil.NumDaysInMonth(2018, 0);
+		assertEquals("Jan", 31, days);
+		days = CalendarUtil.NumDaysInMonth(2018, 1);
+		assertEquals("Feb", 28, days);
+		days = CalendarUtil.NumDaysInMonth(2016, 1);
+		assertEquals("Feb_l", 29, days);
+		days = CalendarUtil.NumDaysInMonth(2016, 2);
+		assertEquals("Feb_l", 31, days);
+		days = CalendarUtil.NumDaysInMonth(2018, 11);
+		assertEquals("Dec", 31, days);
+		
+		boolean leap = CalendarUtil.IsLeapYear(2018);
+		assertFalse("l 2018", leap);
+		leap = CalendarUtil.IsLeapYear(2016);
+		assertTrue("l 2016", leap);
+		leap = CalendarUtil.IsLeapYear(2000);
+		assertTrue("l 2000", leap);
+		leap = CalendarUtil.IsLeapYear(1900);
+		assertFalse("l 1900", leap);
+	}
+	
+	//Test an appointment
 	@Test(timeout = 4000)
 	public void test00() throws Throwable {
 		//hour, minute, day, month, year, title, desc, email
