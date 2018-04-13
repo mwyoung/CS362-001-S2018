@@ -21,6 +21,14 @@ public class CalDayTest{
 	  CalDay calDay0 = new CalDay(testDay);
 	  calDay0.addAppt(appt0);
 	  assertTrue("CalDay Valid", calDay0.isValid());
+	  assertEquals("Num Appts", 1, calDay0.getSizeAppts());
+	  assertEquals("Day", sDay, calDay0.getDay());
+	  
+	  Appt appt1 = new Appt(10, 8, sDay, sMonth, sYear, "Birthday Party", "This is my birthday party", "xyz@gmail.com");
+	  assertTrue("Appt1 Valid", appt1.getValid());
+	  calDay0.addAppt(appt1);
+	  assertEquals("Num Appts2", 2, calDay0.getSizeAppts());
+	  
   }
   @Test(timeout = 4000)
   public void test01()  throws Throwable  {
