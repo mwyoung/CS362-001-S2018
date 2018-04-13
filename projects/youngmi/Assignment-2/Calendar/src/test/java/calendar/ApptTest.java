@@ -21,6 +21,16 @@ public class ApptTest {
 		appt0.setValid();
 		assertFalse("Not valid", appt0.getValid());
 	}
+	
+	@Test(timeout = 4000)
+	public void test00_1() throws Throwable {
+		//hour, minute, day, month, year, title, desc, email
+		Appt appt0 = new Appt(00, 30, 4, 4, 2018, "Birthday Party", "This is my birthday party", "xyz@gmail.com");
+		String string0 = appt0.toString();
+		assertEquals("Output string", "\t4/4/2018 at 12:30am ,Birthday Party, This is my birthday party\n", string0);
+		appt0.setValid();
+		assertFalse("Not valid", appt0.getValid());
+	}
 
 	@Test(timeout = 4000)
 	public void test01() throws Throwable {
@@ -40,6 +50,7 @@ public class ApptTest {
 		assertFalse("False Occur 3", appt1.isOn(9, 14, 2019));
 		appt1.setValid();
 		assertTrue("Is Valid", appt1.getValid());
+		assertFalse("No Recur", appt1.isRecurring());
 	}
 	//time at 0 hours
 	@Test(timeout = 4000)
@@ -91,6 +102,55 @@ public class ApptTest {
 		assertFalse("Is Valid", appt5.getValid());
 	}
 	
+	//if valid
+	@Test(timeout = 4000)
+	public void test06() throws Throwable {
+		//hour, minute, day, month, year, title, desc, email
+		Appt appt0 = new Appt(9, 60, 15, 4, 2018, "Birthday Party", "This is my birthday party", "xyz@gmail.com");
+		appt0.setValid();
+		assertFalse("IV Minute", appt0.getValid());
+		appt0.setStartMinute(-1);
+		appt0.setValid();
+		assertFalse("IV Minute 2", appt0.getValid());
+		
+		Appt appt1 = new Appt(25, 01, 15, 4, 2018, "Birthday Party", "This is my birthday party", "xyz@gmail.com");
+		appt1.setValid();
+		assertFalse("IV hour", appt1.getValid());
+		appt1.setStartHour(-1);
+		appt1.setValid();
+		assertFalse("IV hour", appt1.getValid());
+		
+		Appt appt2 = new Appt(13, 01, 0, 2, 2018, "Birthday Party", "This is my birthday party", "xyz@gmail.com");
+		appt2.setValid();
+		assertFalse("IV day", appt2.getValid());
+		
+		Appt appt3 = new Appt(13, 01, 35, 2, 2018, "Birthday Party", "This is my birthday party", "xyz@gmail.com");
+		appt3.setValid();
+		assertFalse("IV day 2", appt3.getValid());
+		
+		Appt appt4 = new Appt(13, 01, 15, 13, 2018, "Birthday Party", "This is my birthday party", "xyz@gmail.com");
+		appt4.setValid();
+		assertFalse("IV month", appt4.getValid());
+		appt4.setStartMonth(-1);
+		appt4.setValid();
+		assertFalse("IV month 2", appt4.getValid());
+		
+		Appt appt5 = new Appt(9, 01, 15, 4, -1, "Birthday Party", "This is my birthday party", "xyz@gmail.com");
+		appt5.setValid();
+		assertFalse("IV year", appt5.getValid());
+		//String str = appt5.toString();
+		//assertEquals("Str not valid", "\tThis appointment is not valid", str);
+	}
+	
+	//No start time
+	@Test(timeout = 4000)
+	public void test07() throws Throwable {
+		// day, month, year, title, desc, email
+		Appt appt0 = new Appt(15, 4, 2018, null, null, null);
+		assertTrue("No Start", appt0.getValid());
+		assertFalse("No Time", appt0.hasTimeSet());
+	}
+	
 	@Test(timeout = 4000)
 	public void test01_r() throws Throwable {
 		Appt appt0 = new Appt(15, 30, 9, 4, 2018, "Birthday Party", "This is my birthday party", "xyz@gmail.com");
@@ -101,6 +161,7 @@ public class ApptTest {
 		assertEquals("Recur Num", Appt.RECUR_NUMBER_FOREVER, appt0.getRecurNumber());
 		assertEquals("Recur By", Appt.RECUR_BY_WEEKLY, appt0.getRecurBy());
 		assertEquals("Recur Days", recurDaysArr, appt0.getRecurDays());
+		assertEquals("Recur Inc", 2, appt0.getRecurIncrement());
 		appt0.setValid();
 		assertTrue("Recur Valid", appt0.getValid());
 	}
@@ -132,4 +193,14 @@ public class ApptTest {
 		appt0.setValid();
 		assertTrue("Recur Valid", appt0.getValid());
 	}
+	
+	@Test(timeout = 4000)
+	public void test04_r() throws Throwable {
+		Appt appt0 = new Appt(15, 30, 9, 4, 2018, "Birthday Party", "This is my birthday party", "xyz@gmail.com");
+		//test recurrence
+		int[] recurDaysArr= null;
+		//days, by_, increment, number
+		appt0.setRecurrence(recurDaysArr, Appt.RECUR_BY_YEARLY, 2, 4);
+		assertEquals("Recur Num", 4, appt0.getRecurNumber());
+		}
 }
