@@ -16,28 +16,101 @@ import java.util.LinkedList;
 
 public class DataHandlerTest{
 
+	//test saving
 	@Test(timeout = 4000)
 	public void test00()	throws Throwable	{
 		DataHandler dhfile = new DataHandler();
-		int sDay = 9;
-		int sMonth = 4;
-		int sYear = 2018;
-		Appt appt0 = new Appt(15, 30, sDay, sMonth, sYear, "Birthday Party", "This is my birthday party", "xyz@gmail.com");
+		Appt appt0 = new Appt(15, 30, 9, 4, 2018, "Birthday Party", "This is my birthday party", "xyz@gmail.com");
 		boolean output = dhfile.saveAppt(appt0);
-		assertTrue("No AutoSave", output);
-		
-		Appt appt1 = new Appt(-1, 30, sDay, sMonth, sYear, "Birthday Party", "This is my birthday party", "xyz@gmail.com");
+		assertTrue("saved", output);
+		Appt appt1 = new Appt(5, 5, 4, 35, 2018, null, null, null);
+		appt1.setValid();
+		assertFalse("bad appt", appt1.getValid());
 		output = dhfile.saveAppt(appt1);
-		assertFalse("No AutoSave2", output);
+		assertFalse("Saved bad appt", output);
 	}
+	
+	//test deleting
 	@Test(timeout = 4000)
 	public void test01()	throws Throwable	{
 		DataHandler dhfile = new DataHandler();
 		Appt appt1 = new Appt(15, 30, 9, 4, 2018, "Birthday Party", "This is my birthday party", "xyz@gmail.com");
 		boolean output = dhfile.saveAppt(appt1);
-		assertTrue("No AutoSave3", output);
+		assertTrue("save3", output);
 		output = dhfile.deleteAppt(appt1);
-		assertTrue("No AutoSave4", output);
+		assertTrue("save4", output);
 	}
-
+	
+	//test delete
+	@Test(timeout = 4000)
+	public void test02()	throws Throwable	{
+		DataHandler dhfile = new DataHandler();
+		Appt appt1 = new Appt(-1, -1, -1, -1, -1, null, null, null);
+		appt1.setValid();
+		boolean output = dhfile.saveAppt(appt1);
+		output = dhfile.deleteAppt(appt1);
+		assertFalse("No delete", output);
+	}
+	
+	//test autosave
+	@Test(timeout = 4000)
+	public void test03()	throws Throwable	{
+		DataHandler dhfile = new DataHandler("calendar2.xml",true);
+		Appt appt1 = new Appt(15, 30, 9, 4, 2018, "Birthday Party", "This is my birthday party", "xyz@gmail.com");
+		boolean output = dhfile.saveAppt(appt1);
+		assertTrue("autosave", output);
+		output = dhfile.deleteAppt(appt1);
+		assertTrue("autosave", output);
+	}
+	
+	//test no autosave
+	@Test(timeout = 4000)
+	public void test04()	throws Throwable	{
+		DataHandler dhfile = new DataHandler("calendar2.xml",false);
+		Appt appt1 = new Appt(15, 30, 9, 4, 2018, "Birthday Party", "This is my birthday party", "xyz@gmail.com");
+		boolean output = dhfile.saveAppt(appt1);
+		assertTrue("no autosave", output);
+		output = dhfile.deleteAppt(appt1);
+		assertTrue("no autosave", output);
+	}
+	
+	//recur
+	@Test(timeout = 4000)
+	public void test00_r()	throws Throwable	{
+		DataHandler dhfile = new DataHandler();
+		Appt appt0 = new Appt(15, 30, 9, 4, 2018, "A2", "Appt2", "xyz@gmail.com");
+		int[] recurDaysArr= {2};
+		//days, by_, increment, number
+		appt0.setRecurrence(recurDaysArr, Appt.RECUR_BY_MONTHLY, 2, 2);
+		appt0.setValid();
+		assertTrue("valid", appt0.getValid());
+		boolean output = dhfile.saveAppt(appt0);
+		assertTrue("Recur S", output);
+	}
+	
+	//save 2
+	@Test(timeout = 4000)
+	public void test01_save()	throws Throwable	{
+		DataHandler dhfile = new DataHandler();
+		//hour, minute, day, month, year, title, desc, email
+		Appt appt0 = new Appt(15, 30, 4, 4, 2018, "A2", "Appt2", "xyz@gmail.com");
+		appt0.setValid();
+		dhfile.saveAppt(appt0);
+		assertTrue("valid", appt0.getValid());
+		
+		Appt appt1 = new Appt(5, 5, 5, 4, 2018, null, null, null);
+		appt1.setValid();
+		dhfile.saveAppt(appt1);
+		assertTrue("valid", appt1.getValid());
+		
+		GregorianCalendar day1 = new GregorianCalendar(2018,3,4);
+		GregorianCalendar day2 = new GregorianCalendar(2018,4,6);
+		LinkedList<CalDay> calDays = new LinkedList<CalDay>();
+		calDays = (LinkedList<CalDay>) dhfile.getApptRange(day1,day2);
+		LinkedList<Appt> apptlist = calDays.get(0).getAppts();
+		System.out.println("Num appts: "+apptlist.size());
+		Appt appt2 = apptlist.get(0);
+		String string0 = appt2.toString();
+		assertEquals("string","\t4/4/2018 at 3:30pm ,A2, Appt2\n", string0);
+	}
 }
