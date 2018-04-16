@@ -1,6 +1,4 @@
-
 /** A JUnit test class to test the class DataHandler. */
-
 
 package calendar;
 
@@ -13,9 +11,7 @@ import calendar.DataHandler;
 import java.util.GregorianCalendar;
 import java.util.LinkedList;
 
-
 public class DataHandlerTest{
-
 	//test saving
 	@Test(timeout = 4000)
 	public void test00()	throws Throwable	{
@@ -91,7 +87,7 @@ public class DataHandlerTest{
 	//recur 2
 	@Test(timeout = 4000)
 	public void test01_r()	throws Throwable	{
-		DataHandler dhfile = new DataHandler("calendar2.xml",true);
+		DataHandler dhfile = new DataHandler();
 		Appt appt0 = new Appt(5, 30, 9, 4, 2018, "A2", "Appt2", "xyz@gmail.com");
 		int[] recurDaysArr= {2};
 		//days, by_, increment, number
@@ -140,7 +136,7 @@ public class DataHandlerTest{
 		//assertEquals("string","\t4/4/2018 at 3:30pm ,A2, Appt2\n", string0);
 	}
 	
-	//recur yearly
+	//recur weekly
 	@Test(timeout = 4000)
 	public void test03_r()	throws Throwable	{
 		DataHandler dhfile = new DataHandler("calendar2.xml",true);

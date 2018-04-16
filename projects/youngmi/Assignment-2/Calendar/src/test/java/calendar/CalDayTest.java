@@ -9,7 +9,6 @@ import calendar.CalDay;
 import java.util.GregorianCalendar;
 
 public class CalDayTest{
-	
 	//Test setting up multiple appointments
 	@Test(timeout = 4000)
 	public void test00()	throws Throwable	{
