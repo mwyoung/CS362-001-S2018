@@ -87,8 +87,8 @@ public class DataHandlerTest{
 	//recur 2
 	@Test(timeout = 4000)
 	public void test01_r()	throws Throwable	{
-		DataHandler dhfile = new DataHandler("calendar3.xml",true);
-		Appt appt0 = new Appt(5, 30, 9, 4, 2018, "A2", "Appt2", "xyz@gmail.com");
+		DataHandler dhfile = new DataHandler("calendar5.xml",true);
+		Appt appt0 = new Appt(5, 30, 3, 4, 2018, "A2", "Appt2", "xyz@gmail.com");
 		//days, by_, increment, number
 		appt0.setRecurrence(null, Appt.RECUR_BY_WEEKLY, 2, 2); //Appt.RECUR_NUMBER_FOREVER);
 		appt0.setValid();
@@ -102,26 +102,30 @@ public class DataHandlerTest{
 		dhfile.saveAppt(appt1);
 		assertTrue("valid", appt1.getValid());
 		
-		GregorianCalendar day1 = new GregorianCalendar(2018,3,4);
+		GregorianCalendar day1 = new GregorianCalendar(2018,3,3);
 		GregorianCalendar day2 = new GregorianCalendar(2018,8,6);
 		LinkedList<CalDay> calDays = new LinkedList<CalDay>();
 		calDays = (LinkedList<CalDay>) dhfile.getApptRange(day1,day2);
-		int numappts = 0; 
+		int firstappointment = 0; 
 		for(int i=0; i< calDays.size();i++) {
 			LinkedList<Appt> apptlist = calDays.get(i).getAppts();
-			numappts += apptlist.size();
+			if((firstappointment==0)&&(apptlist.size()>0)){
+				firstappointment = i; //get first appointment
+			}
+			//numappts += apptlist.size();
 		}
-		System.out.println("Num appts r: "+numappts);
-		//Appt appt2 = apptlist.get(0);
-		//String string0 = appt2.toString();
-		//assertEquals("string","\t4/4/2018 at 3:30pm ,A2, Appt2\n", string0);
+		//get first appointment
+		LinkedList<Appt> apptlist = calDays.get(firstappointment).getAppts();
+		Appt appt2 = apptlist.get(0);
+		String string0 = appt2.toString();
+		assertEquals("string","\t4/3/2018 at 5:30am ,A2, Appt2\n", string0);
 	}
 	
 	//recur yearly
 	@Test(timeout = 4000)
 	public void test02_r()	throws Throwable	{
-		DataHandler dhfile = new DataHandler("calendar2.xml",true);
-		Appt appt0 = new Appt(5, 30, 9, 4, 2018, "A2", "Appt2", "xyz@gmail.com");
+		DataHandler dhfile = new DataHandler("calendar6.xml",true);
+		Appt appt0 = new Appt(5, 30, 4, 4, 2018, "A2", "Appt2", "xyz@gmail.com");
 		int[] recurDaysArr= {2};
 		//days, by_, increment, number
 		appt0.setRecurrence(recurDaysArr, Appt.RECUR_BY_YEARLY, 2, 2); //Appt.RECUR_NUMBER_FOREVER);
@@ -129,37 +133,54 @@ public class DataHandlerTest{
 		assertTrue("valid", appt0.getValid());
 		dhfile.saveAppt(appt0);
 		
-		GregorianCalendar day1 = new GregorianCalendar(2018,3,4);
+		GregorianCalendar day1 = new GregorianCalendar(2019,3,4);
 		GregorianCalendar day2 = new GregorianCalendar(2019,5,6);
 		LinkedList<CalDay> calDays = new LinkedList<CalDay>();
 		calDays = (LinkedList<CalDay>) dhfile.getApptRange(day1,day2);
-		LinkedList<Appt> apptlist = calDays.get(0).getAppts();
-		System.out.println("Num appts r: "+apptlist.size());
-		//Appt appt2 = apptlist.get(0);
-		//String string0 = appt2.toString();
-		//assertEquals("string","\t4/4/2018 at 3:30pm ,A2, Appt2\n", string0);
+		int firstappointment = 0; 
+		for(int i=0; i< calDays.size();i++) {
+			LinkedList<Appt> apptlist = calDays.get(i).getAppts();
+			if((firstappointment==0)&&(apptlist.size()>0)){
+				firstappointment = i; //get first appointment
+			}
+			//numappts += apptlist.size();
+		}
+		LinkedList<Appt> apptlist = calDays.get(firstappointment).getAppts();
+		Appt appt2 = apptlist.get(0);
+		String string0 = appt2.toString();
+		assertEquals("string","\t4/4/2019 at 5:30am ,A2, Appt2\n", string0);
 	}
 	
 	//recur weekly
 	@Test(timeout = 4000)
 	public void test03_r()	throws Throwable	{
-		DataHandler dhfile = new DataHandler("calendar2.xml",true);
-		Appt appt0 = new Appt(5, 30, 9, 4, 2018, "A2", "Appt2", "xyz@gmail.com");
+		DataHandler dhfile = new DataHandler("calendar7.xml",true);
+		Appt appt0 = new Appt(5, 30, 4, 4, 2018, "A2", "Appt2", "xyz@gmail.com");
 		//days, by_, increment, number
-		appt0.setRecurrence(null, Appt.RECUR_BY_WEEKLY, 2, 2); //Appt.RECUR_NUMBER_FOREVER);
+		int recurDays[]= {1};
+		appt0.setRecurrence(recurDays, Appt.RECUR_BY_WEEKLY, 2, Appt.RECUR_NUMBER_FOREVER);
 		appt0.setValid();
 		assertTrue("valid", appt0.getValid());
 		dhfile.saveAppt(appt0);
 		
-		GregorianCalendar day1 = new GregorianCalendar(2018,3,4);
-		GregorianCalendar day2 = new GregorianCalendar(2019,5,6);
+		GregorianCalendar day1 = new GregorianCalendar(2018,4,5);
+		GregorianCalendar day2 = new GregorianCalendar(2018,6,6);
 		LinkedList<CalDay> calDays = new LinkedList<CalDay>();
 		calDays = (LinkedList<CalDay>) dhfile.getApptRange(day1,day2);
-		LinkedList<Appt> apptlist = calDays.get(0).getAppts();
-		System.out.println("Num appts r: "+apptlist.size());
-		//Appt appt2 = apptlist.get(0);
-		//String string0 = appt2.toString();
-		//assertEquals("string","\t4/4/2018 at 3:30pm ,A2, Appt2\n", string0);
+		int firstappointment = 0; 
+		for(int i=0; i< calDays.size();i++) {
+			LinkedList<Appt> apptlist = calDays.get(i).getAppts();
+			if((firstappointment==0)&&(apptlist.size()>0)){
+				firstappointment = i; //get first appointment
+				Appt output = apptlist.get(i);
+				System.out.println("\tappt: "+output.toString());
+			}
+			//numappts += apptlist.size();
+		}
+		LinkedList<Appt> apptlist = calDays.get(firstappointment).getAppts();
+		Appt appt2 = apptlist.get(0);
+		String string0 = appt2.toString();
+		assertEquals("string","\t4/11/2019 at 5:30am ,A2, Appt2\n", string0);
 	}
 	
 	//save 2
@@ -186,7 +207,7 @@ public class DataHandlerTest{
 			LinkedList<Appt> apptlist = calDays.get(i).getAppts();
 			numappts += apptlist.size();
 		}
-		System.out.println("Num appts: "+numappts);
+		//System.out.println("Num appts: "+numappts);
 		assertEquals("num appts", 2, numappts);
 		LinkedList<Appt> apptlist = calDays.get(0).getAppts();
 		Appt appt2 = apptlist.get(0);
