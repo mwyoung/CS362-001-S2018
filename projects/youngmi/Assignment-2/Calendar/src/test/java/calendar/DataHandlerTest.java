@@ -206,7 +206,7 @@ public class DataHandlerTest{
 				string0 = currentDay.getFullInfomrationApp(currentDay);
 			}
 		}
-		assertEquals("string","\t5:30am A2 Appt2\n", string0);
+		assertEquals("string","6-4-2018 \n\t5:30AM A2 Appt2 ", string0);
 	}
 	
 	//save 2
