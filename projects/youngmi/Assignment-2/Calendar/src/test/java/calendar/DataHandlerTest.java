@@ -167,20 +167,46 @@ public class DataHandlerTest{
 		GregorianCalendar day2 = new GregorianCalendar(2018,6,6);
 		LinkedList<CalDay> calDays = new LinkedList<CalDay>();
 		calDays = (LinkedList<CalDay>) dhfile.getApptRange(day1,day2);
-		int firstappointment = 0; 
+		String string0 = ""; 
+		int firstappointment=0;
 		for(int i=0; i< calDays.size();i++) {
+			CalDay currentDay = calDays.get(i);
 			LinkedList<Appt> apptlist = calDays.get(i).getAppts();
 			if((firstappointment==0)&&(apptlist.size()>0)){
 				firstappointment = i; //get first appointment
-				Appt output = apptlist.get(i);
-				System.out.println("\tappt: "+output.toString());
+				string0 = currentDay.getFullInfomrationApp(currentDay);
 			}
-			//numappts += apptlist.size();
 		}
-		LinkedList<Appt> apptlist = calDays.get(firstappointment).getAppts();
-		Appt appt2 = apptlist.get(0);
-		String string0 = appt2.toString();
-		assertEquals("string","\t4/11/2019 at 5:30am ,A2, Appt2\n", string0);
+		assertEquals("string","\t5:30am A2 Appt2\n", string0);
+	}
+	
+	//recur monthly
+	@Test(timeout = 4000)
+	public void test04_r()	throws Throwable	{
+		DataHandler dhfile = new DataHandler("calendar7.xml",true);
+		Appt appt0 = new Appt(5, 30, 4, 4, 2018, "A2", "Appt2", "xyz@gmail.com");
+		//days, by_, increment, number
+		int recurDays[]= {1};
+		appt0.setRecurrence(recurDays, Appt.RECUR_BY_MONTHLY, 2, Appt.RECUR_NUMBER_FOREVER);
+		appt0.setValid();
+		assertTrue("valid", appt0.getValid());
+		dhfile.saveAppt(appt0);
+
+		GregorianCalendar day1 = new GregorianCalendar(2018,4,5);
+		GregorianCalendar day2 = new GregorianCalendar(2018,6,6);
+		LinkedList<CalDay> calDays = new LinkedList<CalDay>();
+		calDays = (LinkedList<CalDay>) dhfile.getApptRange(day1,day2);
+		String string0 = ""; 
+		int firstappointment=0;
+		for(int i=0; i< calDays.size();i++) {
+			CalDay currentDay = calDays.get(i);
+			LinkedList<Appt> apptlist = calDays.get(i).getAppts();
+			if((firstappointment==0)&&(apptlist.size()>0)){
+				firstappointment = i; //get first appointment
+				string0 = currentDay.getFullInfomrationApp(currentDay);
+			}
+		}
+		assertEquals("string","\t5:30am A2 Appt2\n", string0);
 	}
 	
 	//save 2
