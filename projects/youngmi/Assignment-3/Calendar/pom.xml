@@ -19,8 +19,8 @@
       <scope>test</scope>
     </dependency>
   </dependencies>
-  <build>
-    <plugins>
+<build>
+<plugins>
 
 <plugin>
   <groupId>org.jacoco</groupId>
@@ -53,20 +53,20 @@
 
 
 
-      <plugin>
+<plugin>
 	<groupId>org.pitest</groupId>
 	<artifactId>pitest-maven</artifactId>
 	<version>1.2.0</version>
 	<configuration>
 	  <avoidCallsTo>
 	    <!--
-
-A List of packages, classes and methods which are to be considered outside the scope of mutation.
+		A List of packages, classes and methods which are to be considered 
+		outside the scope of mutation.
 	    -->
 	    <avoidCallsTo>java.io.PrintStream</avoidCallsTo>
 	  </avoidCallsTo>
 	</configuration>
-      </plugin>
-    </plugins>
-  </build>
+	</plugin>
+</plugins>
+</build>
 </project>

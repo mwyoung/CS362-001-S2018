@@ -83,7 +83,7 @@ public class DataHandlerTest{
 		boolean output = dhfile.saveAppt(appt0);
 		assertTrue("Recur S", output);
 	}
-	
+	/*
 	//recur 2
 	@Test(timeout = 4000)
 	public void test01_r()	throws Throwable	{
@@ -208,7 +208,8 @@ public class DataHandlerTest{
 		}
 		assertEquals("string","6-4-2018 \n\t5:30AM A2 Appt2 ", string0);
 	}
-	
+	*/
+	/*
 	//save 2
 	@Test(timeout = 4000)
 	public void test01_save()	throws Throwable	{
@@ -240,4 +241,5 @@ public class DataHandlerTest{
 		String string0 = appt2.toString();
 		assertEquals("1st appt","\t4/4/2018 at 3:30pm ,A2, Appt2\n", string0);
 	}
+	*/
 }

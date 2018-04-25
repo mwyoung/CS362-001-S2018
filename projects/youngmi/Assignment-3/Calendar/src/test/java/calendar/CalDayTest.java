@@ -9,6 +9,8 @@ import calendar.CalDay;
 import java.util.GregorianCalendar;
 
 public class CalDayTest{
+	
+	/*
 	//Test setting up multiple appointments
 	@Test(timeout = 4000)
 	public void test00()	throws Throwable	{
@@ -42,7 +44,7 @@ public class CalDayTest{
 		assertEquals("Num Appts3", 3, calday0.getSizeAppts());
 		assertTrue("calday Valid", calday0.isValid());
 	}
-	
+	*/
 	//Test multiple appointments
 	@Test(timeout = 4000)
 	public void test01()	throws Throwable	{
@@ -101,7 +103,7 @@ public class CalDayTest{
 		System.out.println(strTest);
 		assertEquals("toString", strTest, strOut);
 	}
-	
+	/*
 	//test not valid
 	//Test setting up multiple appointments
 	@Test(timeout = 4000)
@@ -138,5 +140,6 @@ public class CalDayTest{
 		System.out.println(strTest);
 		assertEquals("Compare output with test", strTest, strOut);
 	}
+	*/
 }
 
