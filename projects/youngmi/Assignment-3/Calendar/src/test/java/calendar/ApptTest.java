@@ -138,6 +138,14 @@ public class ApptTest {
 		appt5.toString();
 		assertFalse("Is Valid", appt5.getValid());
 	}
+	//Day out of range
+	@Test(timeout = 4000)
+	public void test05_0() throws Throwable {
+		//hour, minute, day, month, year, title, desc, email
+		Appt appt5 = new Appt(9, 01, 0, 4, 2019, "Birthday Party", "This is my birthday party", "xyz@gmail.com");
+		appt5.setValid();
+		assertFalse("Is Valid", appt5.getValid());
+	}
 	
 	//string
 	@Test(timeout = 4000)
