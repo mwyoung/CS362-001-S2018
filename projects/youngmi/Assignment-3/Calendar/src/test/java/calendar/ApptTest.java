@@ -153,9 +153,52 @@ public class ApptTest {
 		//hour, minute, day, month, year, title, desc, email
 		Appt appt5 = new Appt(25, 65, 35, 14, -1, null, null, null);
 		appt5.setValid();
-		String str = appt5.toString();
+		//String str = appt5.toString();
 		assertFalse("Is Valid", appt5.getValid());
-		System.out.println(str);
+		//System.out.println(str);
+	}
+	
+	//string
+	@Test(timeout = 4000)
+	public void test06_a() throws Throwable {
+		//hour, minute, day, month, year, title, desc, email
+		Appt appt5 = new Appt(15, 65, 5, 4, 2000, null, null, null);
+		appt5.setValid();
+		assertFalse("Is Valid", appt5.getValid());
+		Appt appt6 = new Appt(15, -60, 5, 4, 2000, null, null, null);
+		appt6.setValid();
+		assertFalse("Is Valid", appt6.getValid());
+	}
+	
+	//string
+	@Test(timeout = 4000)
+	public void test06_b() throws Throwable {
+		// day, month, year, title, desc, email
+		Appt appt0 = new Appt(35, 4, 2018, null, null, null);
+		appt0.setValid();
+		assertFalse("Valid", appt0.getValid());
+		Appt appt1 = new Appt(-1, 4, 2018, null, null, null);
+		appt1.setValid();
+		assertFalse("Valid", appt1.getValid());
+	}
+	
+	//No start time
+	@Test(timeout = 4000)
+	public void test06_c() throws Throwable {
+		Appt appt0 = new Appt(5, -1, 2018, null, null, null);
+		appt0.setValid();
+		assertFalse("Valid", appt0.getValid());
+		Appt appt1 = new Appt(5, 13, 2018, null, null, null);
+		appt1.setValid();
+		assertFalse("Valid", appt1.getValid());
+	}
+	
+	//No start time
+	@Test(timeout = 4000)
+	public void test06_d() throws Throwable {
+		Appt appt0 = new Appt(5, 4, -1, null, null, null);
+		appt0.setValid();
+		assertFalse("Valid", appt0.getValid());
 	}
 	
 	//if valid
@@ -203,7 +246,8 @@ public class ApptTest {
 	public void test08() throws Throwable {
 		// day, month, year, title, desc, email
 		Appt appt0 = new Appt(15, 4, 2018, null, null, null);
-		assertTrue("No Start", appt0.getValid());
+		appt0.setValid();
+		assertFalse("No Start", appt0.getValid());
 		assertFalse("No Time", appt0.hasTimeSet());
 	}
 	
