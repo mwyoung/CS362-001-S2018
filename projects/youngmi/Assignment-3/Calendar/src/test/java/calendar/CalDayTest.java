@@ -146,9 +146,32 @@ public class CalDayTest{
 				+ " --- -------- Appointments ------------ --- \n\n";
 		assertEquals("no string", strTest, strOut);
 	}
-	//Test information
+	//test not valid
+	//Test setting up multiple appointments
 	@Test(timeout = 4000)
 	public void test05()	throws Throwable	{
+		int sDay = -1;
+		int sMonth = 5;
+		int sYear = 2018;
+		Appt appt0 = new Appt(0, 30, sDay, sMonth, sYear, "A2", null, null);
+		appt0.setValid();
+		assertFalse("Appt invalid", appt0.getValid());
+		Appt appt1 = new Appt(2, 30, sDay, sMonth, sYear, "A2", null, null);
+		appt1.setValid();
+		assertFalse("Appt invalid", appt1.getValid());
+		GregorianCalendar testDay = new GregorianCalendar(sYear, sMonth, sDay);
+		CalDay calday0 = new CalDay(testDay);
+		calday0.addAppt(appt0);
+		calday0.addAppt(appt1);
+		assertEquals("Num Appts", 0, calday0.getSizeAppts());
+		String strOut = calday0.toString();
+		String strTest = "\t --- 6/30/2018 --- \n"
+				+ " --- -------- Appointments ------------ --- \n\n";
+		assertEquals("no string", strTest, strOut);
+	}
+	//Test information
+	@Test(timeout = 4000)
+	public void test06()	throws Throwable	{
 		int sDay = 9;
 		int sMonth = 4;
 		int sYear = 2018;

@@ -179,7 +179,7 @@ public class DataHandler {
                 //For this appointment, get the values of all fields
                 NodeList fieldNodes = currentAppt.getChildNodes();
                 Hashtable<String, String> fields = new Hashtable<String, String>();
-                if (diagnose) {
+               if (diagnose) {
                     System.out.println("Preparing to read each field for the appt");
                 }
                 for (int j = 0; j < fieldNodes.getLength(); j++) {
@@ -249,7 +249,7 @@ public class DataHandler {
                     
                     if (diagnose) {
                         System.out.println("\t" + apptOccursOn);
-                    }
+                   }
                     
                     while(nextDay.before(apptOccursOn)) {
                         daysDifference++;

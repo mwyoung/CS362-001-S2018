@@ -300,7 +300,7 @@ public class ApptTest {
 		//test recurrence
 		int[] recurDaysArr= null;
 		//days, by_, increment, number
-		appt0.setRecurrence(recurDaysArr, Appt.RECUR_BY_YEARLY, 2, 4);
+		appt0.setRecurrence(recurDaysArr, Appt.RECUR_BY_YEARLY, 1, 4);
 		assertEquals("Recur Num", 4, appt0.getRecurNumber());
 		}
 }
