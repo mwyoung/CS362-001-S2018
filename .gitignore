@@ -10,8 +10,6 @@ calendar.xml
 calendar[0-9].xml
 calendar[0-9][0-9].xml
 .settings
-.gitignore
 run.sh
 clean.sh
-makefile
 examples
