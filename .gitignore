@@ -13,6 +13,5 @@ calendar[0-9][0-9].xml
 .gitignore
 run.sh
 clean.sh
-makefile
 examples
 .recommenders
