@@ -2,7 +2,7 @@ SHELL := /bin/bash
 
 default: test 
 
-test: clean main
+test: main
 	mvn test
 
 main: 

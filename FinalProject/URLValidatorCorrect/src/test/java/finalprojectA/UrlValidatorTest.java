@@ -32,7 +32,7 @@ public class UrlValidatorTest extends TestCase {
    }
 
    @Override
-protected void setUp() {
+   protected void setUp() {
       for (int index = 0; index < testPartsIndex.length - 1; index++) {
          testPartsIndex[index] = 0;
       }
@@ -71,7 +71,6 @@ protected void setUp() {
       if (printStatus) {
          System.out.println();
       }
-
    }
 
    /**
@@ -81,8 +80,8 @@ protected void setUp() {
     * @param testObjects Used to create a url.
     */
    public void testIsValid(Object[] testObjects, long allowAllSchemes) {
-	      UrlValidator urlVal = new UrlValidator(null, null, allowAllSchemes);
-	      //UrlValidator urlVal = new UrlValidator(null, allowAllSchemes);
+	  UrlValidator urlVal = new UrlValidator(null, null, allowAllSchemes);
+	  //UrlValidator urlVal = new UrlValidator(null, allowAllSchemes);
       assertTrue(urlVal.isValid("http://www.google.com"));
       assertTrue(urlVal.isValid("http://www.google.com/"));
       int statusPerLine = 60;
@@ -91,7 +90,7 @@ protected void setUp() {
          statusPerLine = 6;
       }
       do {
-          StringBuilder testBuffer = new StringBuilder();
+         StringBuilder testBuffer = new StringBuilder();
          boolean expected = true;
          for (int testPartsIndexIndex = 0; testPartsIndexIndex < testPartsIndex.length; ++testPartsIndexIndex) {
             int index = testPartsIndex[testPartsIndexIndex];
@@ -172,7 +171,6 @@ protected void setUp() {
          }
       }
       return carryMsg.toString();
-
    }
 
    public void testValidateUrl() {
@@ -184,8 +182,7 @@ protected void setUp() {
     * @param argv
     */
    public static void main(String[] argv) {
-
-	   UrlValidatorTest fct = new UrlValidatorTest("url test");
+	  UrlValidatorTest fct = new UrlValidatorTest("url test");
       fct.setUp();
       fct.testIsValid();
       fct.testIsValidScheme();
@@ -278,7 +275,7 @@ protected void setUp() {
    ResultPair[] testScheme = {new ResultPair("http", true),
                             new ResultPair("ftp", false),
                             new ResultPair("httpd", false),
-                            new ResultPair("telnet", false)};
-
+                            new ResultPair("telnet", false)
+                            };
 
 }
