@@ -1,6 +1,6 @@
 SHELL := /bin/bash
 
-default: test
+default: mutate 
 
 test: clean main
 	mvn test

@@ -107,7 +107,7 @@ public class CalendarMain {
         startHour=16;
 		startMinute=30;
 		startDay=-1;		
-		startMonth=thisMonth+2;	
+		startMonth=thisMonth;	
 		startYear=thisYear;	
 		title="Visit";
 		description="Visiting my parents!";
@@ -131,8 +131,8 @@ public class CalendarMain {
         dataHandler.saveAppt(appt4);   
          
  		//get a list of appointments for one day, which is today
- 		GregorianCalendar today = new GregorianCalendar(thisYear,thisMonth,thisDay);
- 		GregorianCalendar tomorrow = new GregorianCalendar(thisYear,thisMonth,thisDay);
+ 		GregorianCalendar today = new GregorianCalendar(thisYear,thisMonth+2,thisDay);
+ 		GregorianCalendar tomorrow = new GregorianCalendar(thisYear,thisMonth+2,thisDay);
 
  		tomorrow.add(today.DAY_OF_MONTH,1);
 
