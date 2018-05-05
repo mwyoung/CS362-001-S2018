@@ -171,6 +171,25 @@ public class DataHandlerTest{
 		}
 	}
 	
+	//recur yearly
+	@Test(timeout = 4000)
+	public void test02_r1()	throws Throwable	{
+		DataHandler dhfile = new DataHandler("calendar6.xml",true);
+		Appt appt0 = new Appt(5, 30, 4, 4, 2018, "A3", "Appt2", "xyz@gmail.com");
+		int[] recurDaysArr= {0};
+		//days, by_, increment, number
+		appt0.setRecurrence(recurDaysArr, Appt.RECUR_BY_YEARLY, 1, 10);
+		appt0.setValid();
+		assertTrue("valid", appt0.getValid());
+		dhfile.saveAppt(appt0);
+		
+		GregorianCalendar day1 = new GregorianCalendar(2018,10,4);
+		GregorianCalendar day2 = new GregorianCalendar(2018,10,5);
+		LinkedList<CalDay> calDays = new LinkedList<CalDay>();
+		calDays = (LinkedList<CalDay>) dhfile.getApptRange(day1,day2);
+		assertEquals("no size", 1, calDays.size());
+	}
+	
 	//recur Monthly
 	@Test(timeout = 4000)
 	public void test03_r()	throws Throwable	{
@@ -273,6 +292,64 @@ public class DataHandlerTest{
 			string0 = calday0.getFullInfomrationApp(calday0);
 			System.out.println(string0);
 			//assertEquals("string","5-9-2018 \n\t5:32AM A2 Appt2 ", string0);
+		}
+		else {
+			fail("Should have an appointment");
+		}
+	}
+	
+	//recur weekly 0
+	@Test(timeout = 4000)
+	public void test05_r0()	throws Throwable	{
+		DataHandler dhfile = new DataHandler("calendar3.xml",true);
+		Appt appt0 = new Appt(5, 32, 4, 4, 2018, "A2", "Appt2", "xyz@gmail.com");
+		int[] recurDaysArr= null;
+		//days, by_, increment, number
+		appt0.setRecurrence(recurDaysArr, Appt.RECUR_BY_WEEKLY, 10, Appt.RECUR_NUMBER_FOREVER);
+		appt0.setValid();
+		assertTrue("valid", appt0.getValid());
+		dhfile.saveAppt(appt0);
+		
+		GregorianCalendar day1 = new GregorianCalendar(2018,4,5);
+		GregorianCalendar day2 = new GregorianCalendar(2018,5,10);
+		LinkedList<CalDay> calDays = new LinkedList<CalDay>();
+		try {
+			calDays = (LinkedList<CalDay>) dhfile.getApptRange(day2,day1);
+			fail("Should fail");
+		} catch (DateOutOfRangeException e) {
+			System.err.println(e.toString());
+		}
+	}
+	//recur weekly
+	@Test(timeout = 4000)
+	public void test05_r1()	throws Throwable	{
+		DataHandler dhfile = new DataHandler("calendar8.xml",true);
+		Appt appt0 = new Appt(5, 33, 2, 4, 2018, "A2", "Appt2", "xyz@gmail.com");
+		int[] recurDaysArr= {3,4};
+		//days, by_, increment, number
+		appt0.setRecurrence(recurDaysArr, Appt.RECUR_BY_WEEKLY, 1, 30);
+		appt0.setValid();
+		assertTrue("valid", appt0.getValid());
+		dhfile.saveAppt(appt0);
+		
+		GregorianCalendar day1 = new GregorianCalendar(2018,5,5);
+		GregorianCalendar day2 = new GregorianCalendar(2018,5,12);
+		LinkedList<CalDay> calDays = new LinkedList<CalDay>();
+		calDays = (LinkedList<CalDay>) dhfile.getApptRange(day1,day2);
+		CalDay calday0;
+		String string0;
+		int firstappointment = -1; 
+		for(int i=0; i< calDays.size();i++) {
+			LinkedList<Appt> apptlist = calDays.get(i).getAppts();
+			if((firstappointment==-1)&&(apptlist.size()>0)){
+				firstappointment = i; //get first appointment	
+			}
+		}
+		if(firstappointment != -1) {
+			calday0 = calDays.get(firstappointment);
+			string0 = calday0.getFullInfomrationApp(calday0);
+			System.out.println(string0);
+			//assertEquals("string","6-5-2018 \n\t5:31AM A2 Appt2 ", string0);
 		}
 		else {
 			fail("Should have an appointment");
