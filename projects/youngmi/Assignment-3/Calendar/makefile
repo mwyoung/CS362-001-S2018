@@ -13,14 +13,15 @@ run: main
 	java -cp ./target/classes/ calendar.CalendarMain
 
 clean:
-	-rm -f calendar.xml calendar*.xml
+	-rm -f calendar.xml calendar*.xml 
 
+jacoco: report
 report:
 	mvn jacoco:report
 	google-chrome target/site/jacoco/index.html
 
-mutate: test   
+pitest:
 	mvn org.pitest:pitest-maven:mutationCoverage
-	set -e ;\
-	LOC=$$(ls -t target/pit-reports | head -1) ;\
+mutate: test pitest  
+	set -e ; LOC=$$(ls -t target/pit-reports | head -1) ;\
 	google-chrome target/pit-reports/$$LOC/index.html 
