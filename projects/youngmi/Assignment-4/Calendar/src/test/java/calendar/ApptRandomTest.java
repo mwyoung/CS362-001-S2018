@@ -111,8 +111,7 @@ public class ApptRandomTest {
 		        				 recurDays=ValuesGenerator.generateRandomArray(random, sizeArray);
 		        			 }
 		        			 else {
-		        				 //test setRecurdays
-		        				 recurDays = null;
+		        				 recurDays = null;  //test setRecurdays
 		        			 }
 		        			 
 		        			 int recur=ApptRandomTest.RandomSelectRecur(random);
@@ -128,7 +127,7 @@ public class ApptRandomTest {
 		        	 }
 		         }
 				 elapsed = (Calendar.getInstance().getTimeInMillis() - startTime);
-				 //if((iteration%1000000)==0 && iteration!=0 ) { System.out.println("test: " + iteration + ", elapsed time: " + elapsed + " of "+TestTimeout); }
+				 //if((iteration%1000000)==0 && iteration!=0 ) { System.out.println("test: " + iteration + ", elapsed time: " + elapsed + " of "+TestTimeout);}
 				if(((elapsed%500)==0) && (iteration!=0) && (oldElapsed != elapsed)) { 
 					System.out.println("test: " + iteration + ", elapsed time: " + elapsed + " of "+TestTimeout); 
 					oldElapsed = elapsed;
