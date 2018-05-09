@@ -7,6 +7,8 @@ import static org.junit.Assert.*;
 
 /**
  * Random Test Generator  for Appt class.
+ * Using aburasa's ApptRandomTest starting code, slightly modified
+ * SRC: https://github.com/aburasa/CS362-001-S2018/blob/master/projects/aburasa/Assignment-4/Calendar/src/test/java/calendar/ApptRandomTest.java 
  */
 
 public class ApptRandomTest {
