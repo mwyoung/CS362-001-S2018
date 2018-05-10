@@ -61,7 +61,7 @@ public class ApptRandomTest {
 		 int iteration = 0;
 		 long oldElapsed = 0;
 		 
-		 System.out.println("Start testing...");
+		 System.out.println("Start testing Appt...");
 		 
 		 try{ 
 			for (iteration = 0; elapsed < TestTimeout; iteration++) {

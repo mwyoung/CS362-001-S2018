@@ -65,7 +65,7 @@ public class CalDayRandomTest {
 		int iteration = 0;
 		long oldElapsed = 0;
 
-		System.out.println("Start testing...");
+		System.out.println("Start testing CalDay...");
 
 		try {
 			for (iteration = 0; elapsed < TestTimeout; iteration++) {
@@ -91,16 +91,17 @@ public class CalDayRandomTest {
 				calday.addAppt(appt);
 				assertTrue(calday.isValid());
 
+				//if valid
 				if(appt.getValid()) {
 					assertEquals(1,calday.getSizeAppts());
 					assertEquals(startDay, calday.getDay());
 					assertEquals(startMonth+1, calday.getMonth());
 					assertEquals(startYear, calday.getYear());
 					
-					int numAppts=ValuesGenerator.getRandomIntBetween(random, 1, 11)-1;
+					int numAppts=ValuesGenerator.getRandomIntBetween(random, 1, 11)-1; //get rand # of appts
 					for(int i=0; i<numAppts; i++) {
 						Appt appt1 = new Appt(startHour, startMinute, startDay, startMonth, startYear, title, description, emailAddress);
-						if((i%2)==0) {
+						if((i%2)==0) { //chose different hour ranges
 							startHour=ValuesGenerator.getRandomIntBetween(random, 0, 11);
 							startMinute=ValuesGenerator.getRandomIntBetween(random, 0, 59);
 						}
@@ -108,6 +109,7 @@ public class CalDayRandomTest {
 							startHour=ValuesGenerator.getRandomIntBetween(random, 12, 23);
 							startMinute=ValuesGenerator.getRandomIntBetween(random, 0, 59);
 						}
+						//add appointments
 						appt1.setStartHour(startHour);
 						appt1.setStartMinute(startMinute);
 						appt1.setValid();
@@ -116,8 +118,6 @@ public class CalDayRandomTest {
 					assertEquals(1+numAppts,calday.getSizeAppts());
 				}
 				elapsed = (Calendar.getInstance().getTimeInMillis() - startTime);
-				// if((iteration%1000000)==0 && iteration!=0 ) { System.out.println("test: " +
-				// iteration + ", elapsed time: " + elapsed + " of "+TestTimeout);}
 				if (((elapsed % 500) == 0) && (iteration != 0) && (oldElapsed != elapsed)) {
 					System.out.println("test: " + iteration + ", elapsed time: " + elapsed + " of " + TestTimeout);
 					oldElapsed = elapsed;

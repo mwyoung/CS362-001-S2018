@@ -59,8 +59,9 @@ public class DataHandlerRandomTest {
 			 long elapsed = Calendar.getInstance().getTimeInMillis() - startTime;
 			 int iteration = 0;
 			 long oldElapsed = 0;
+			 int elapseTrigger = 0;
 			 
-			 System.out.println("Start testing...");
+			 System.out.println("Start testing DataHandler...");
 			 
 			 try{ 
 				for (iteration = 0; elapsed < TestTimeout; iteration++) {
@@ -82,15 +83,19 @@ public class DataHandlerRandomTest {
 					Appt appt = new Appt(startHour, startMinute, startDay, startMonth, 
 							startYear, title, description, emailAddress);
 
+					//check if valid
 					appt.setValid();
 					boolean ifValid = appt.getValid();
 					boolean output;
-					int saveFile=ValuesGenerator.getRandomIntBetween(random, 0, 200);
+					
+					//setup datahandler file, days to go over, linked list
 					DataHandler dhfile;
 					GregorianCalendar day1 = new GregorianCalendar(startYear,startMonth,startDay);
 			 		GregorianCalendar day2 = new GregorianCalendar(startYear,startMonth+1,startDay+1);
 			 		LinkedList<CalDay> calDays = new LinkedList<CalDay>();
 			 		
+			 		//get random situation
+					int saveFile=ValuesGenerator.getRandomIntBetween(random, 0, 200);
 					if(saveFile>=190) {
 						dhfile = new DataHandler("calendar.xml",true);
 					}
@@ -114,6 +119,7 @@ public class DataHandlerRandomTest {
 						dhfile = new DataHandler("calendar.xml",false);
 					}
 					
+					//if not 50 - save file
 					if(saveFile!=50) {
 						output = dhfile.saveAppt(appt);
 						if(ifValid==true) {
@@ -123,13 +129,13 @@ public class DataHandlerRandomTest {
 							assertFalse(output);
 						}
 					}
-					dhfile.deleteAppt(appt);
+					dhfile.deleteAppt(appt); //on 50, delete nothing
 					
-					dhfile.saveAppt(appt);
-					int numAppts=ValuesGenerator.getRandomIntBetween(random, 1, 11);
+					dhfile.saveAppt(appt);	//resave appointment
+					int numAppts=ValuesGenerator.getRandomIntBetween(random, 1, 11); //number of appt to add
 					for(int i=0; i<numAppts; i++) {
-						Appt appt1 = new Appt(startHour, startMinute, startDay, startMonth, startYear, title, description, emailAddress);
-						if((i%2)==0) {
+						Appt appt1 = new Appt(startHour, startMinute, startDay, startMonth, startYear, title, description, emailAddress); //new appointment
+						if((i%2)==0) { //different times
 							startHour=ValuesGenerator.getRandomIntBetween(random, 0, 11);
 							startMinute=ValuesGenerator.getRandomIntBetween(random, 0, 59);
 						}
@@ -137,7 +143,7 @@ public class DataHandlerRandomTest {
 							startHour=ValuesGenerator.getRandomIntBetween(random, 12, 23);
 							startMinute=ValuesGenerator.getRandomIntBetween(random, 0, 59);
 						}
-						if(i==5) {
+						if(i==5) {	//recur value - setup and add
 							startHour=ValuesGenerator.getRandomIntBetween(random, 0, 23);
 							startMinute=ValuesGenerator.getRandomIntBetween(random, 0, 59);
 							int sizeArray=ValuesGenerator.getRandomIntBetween(random, 0, 8);
@@ -147,6 +153,7 @@ public class DataHandlerRandomTest {
 							int recurNumber = ApptRandomTest.RandomSelectRecurForEverNever(random);
 							appt.setRecurrence(recurDays, recur, recurIncrement, recurNumber);
 						}
+						//add to datafile
 						appt1.setStartHour(startHour);
 						appt1.setStartMinute(startMinute);
 						appt1.setValid();
@@ -168,10 +175,14 @@ public class DataHandlerRandomTest {
 					}
 					
 					elapsed = (Calendar.getInstance().getTimeInMillis() - startTime);
-					//if((iteration%1000000)==0 && iteration!=0 ) { System.out.println("test: " + iteration + ", elapsed time: " + elapsed + " of "+TestTimeout);}
-					if(((elapsed%500)==0) && (iteration!=0) && (oldElapsed != elapsed)) { 
+					
+					if(((elapsed%500)==0) && (iteration!=0)) {
+						elapseTrigger=1;	//do at least once -> less skipping
+					}
+					if ((elapseTrigger==1) && (oldElapsed != elapsed)) { 
 						System.out.println("test: " + iteration + ", elapsed time: " + elapsed + " of "+TestTimeout); 
 						oldElapsed = elapsed;
+						elapseTrigger = 0;
 					}  
 
 				}
