@@ -13,7 +13,7 @@ import java.util.LinkedList;
 
 public class DataHandlerRandomTest {
 	//private static final long TestTimeout = 60 * 500 * 1; /* Timeout at 30 seconds */
-		private static final long TestTimeout = 5*1000; //1000 = 1 second
+		private static final long TestTimeout = 30 * 1000; //1000 = 1 second
 
 		/**
 		 * Return a randomly selected method to be tests !.
