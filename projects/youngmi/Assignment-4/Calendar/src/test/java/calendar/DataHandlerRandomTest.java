@@ -69,6 +69,17 @@ public class DataHandlerRandomTest {
 					//System.out.println(" Seed:"+randomseed );
 					Random random = new Random(randomseed);
 					
+					elapsed = (Calendar.getInstance().getTimeInMillis() - startTime);
+					//reporting
+					if(((elapsed%500)==0) && (iteration!=0)) {
+						elapseTrigger=1;	//do at least once -> less skipping
+					}
+					if ((elapseTrigger==1) && (oldElapsed != elapsed)) { 
+						System.out.println("test: " + iteration + ", elapsed time: " + elapsed + " of "+TestTimeout); 
+						oldElapsed = elapsed;
+						elapseTrigger = 0;
+					} 
+					
 					//random numbers
 					int startHour=ValuesGenerator.getRandomIntBetween(random, 0, 34) - 6;
 					int startMinute=ValuesGenerator.getRandomIntBetween(random, 0, 64) - 1;
@@ -90,8 +101,15 @@ public class DataHandlerRandomTest {
 					
 					//setup datahandler file, days to go over, linked list
 					DataHandler dhfile;
-					GregorianCalendar day1 = new GregorianCalendar(startYear,startMonth,startDay);
-			 		GregorianCalendar day2 = new GregorianCalendar(startYear,startMonth+1,startDay+1);
+					GregorianCalendar day1, day2;
+					if(startMonth<=8) {
+						day1 = new GregorianCalendar(startYear,startMonth+1,startDay);
+			 			day2 = new GregorianCalendar(startYear,startMonth+3,startDay+1);
+					}
+					else {
+						day1 = new GregorianCalendar(startYear+1,1,startDay);
+			 			day2 = new GregorianCalendar(startYear+1,3,startDay+1);
+					}
 			 		LinkedList<CalDay> calDays = new LinkedList<CalDay>();
 			 		
 			 		//get random situation
@@ -143,9 +161,8 @@ public class DataHandlerRandomTest {
 							startHour=ValuesGenerator.getRandomIntBetween(random, 12, 23);
 							startMinute=ValuesGenerator.getRandomIntBetween(random, 0, 59);
 						}
-						if(i==5) {	//recur value - setup and add
-							startHour=ValuesGenerator.getRandomIntBetween(random, 0, 23);
-							startMinute=ValuesGenerator.getRandomIntBetween(random, 0, 59);
+						
+						if(i<5) {	//recur value - setup and add
 							int sizeArray=ValuesGenerator.getRandomIntBetween(random, 0, 8);
 							int []recurDays=ValuesGenerator.generateRandomArray(random, sizeArray);
 							int recur=ApptRandomTest.RandomSelectRecur(random);
@@ -153,6 +170,12 @@ public class DataHandlerRandomTest {
 							int recurNumber = ApptRandomTest.RandomSelectRecurForEverNever(random);
 							appt.setRecurrence(recurDays, recur, recurIncrement, recurNumber);
 						}
+						if(i==5) {
+							//days, by_, increment, number
+							int recurDays[]= {1};
+							appt1.setRecurrence(recurDays, Appt.RECUR_BY_MONTHLY, 2, Appt.RECUR_NUMBER_FOREVER);
+						}
+						
 						//add to datafile
 						appt1.setStartHour(startHour);
 						appt1.setStartMinute(startMinute);
@@ -175,10 +198,6 @@ public class DataHandlerRandomTest {
 					}
 					
 					elapsed = (Calendar.getInstance().getTimeInMillis() - startTime);
-					
-					if(((elapsed%500)==0) && (iteration!=0)) {
-						elapseTrigger=1;	//do at least once -> less skipping
-					}
 					if ((elapseTrigger==1) && (oldElapsed != elapsed)) { 
 						System.out.println("test: " + iteration + ", elapsed time: " + elapsed + " of "+TestTimeout); 
 						oldElapsed = elapsed;
