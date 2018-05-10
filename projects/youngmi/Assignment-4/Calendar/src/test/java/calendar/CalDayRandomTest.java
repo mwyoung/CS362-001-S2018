@@ -2,7 +2,6 @@ package calendar;
 
 import org.junit.Test;
 import static org.junit.Assert.*;
-
 import java.util.Calendar;
 import java.util.Random;
 import java.util.GregorianCalendar;
@@ -14,7 +13,7 @@ import java.util.GregorianCalendar;
 public class CalDayRandomTest {
 
 	// private static final long TestTimeout = 60 * 500 * 1; /* Timeout at 30 secs */
-	private static final long TestTimeout = 10 * 1000; // 1000 = 1 second
+	private static final long TestTimeout = 1 * 1000; // 1000 = 1 second
 	//private static final int NUM_TESTS = 100;
 
 	/**
