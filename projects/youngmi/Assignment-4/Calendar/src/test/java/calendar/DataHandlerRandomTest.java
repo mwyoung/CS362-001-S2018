@@ -88,18 +88,18 @@ public class DataHandlerRandomTest {
 					int saveFile=ValuesGenerator.getRandomIntBetween(random, 0, 200);
 					DataHandler dhfile;
 					GregorianCalendar day1 = new GregorianCalendar(startYear,startMonth,startDay);
-			 		GregorianCalendar day2 = new GregorianCalendar(startYear,startMonth,startDay+1);
+			 		GregorianCalendar day2 = new GregorianCalendar(startYear,startMonth+1,startDay+1);
 			 		LinkedList<CalDay> calDays = new LinkedList<CalDay>();
 			 		
 					if(saveFile>=190) {
 						dhfile = new DataHandler("calendar.xml",true);
 					}
-					else if(saveFile==1) {
+				/*	else if(saveFile==1) {
 						dhfile = new DataHandler("badCal.xml",true);
 						calDays = (LinkedList<CalDay>) dhfile.getApptRange(day1, day2);
 						assertNull(calDays);
 						continue;
-					}
+					} */
 					else if(saveFile==2) {
 						dhfile = new DataHandler("calendar.xml",false);
 						try {
@@ -113,7 +113,6 @@ public class DataHandlerRandomTest {
 					else {
 						dhfile = new DataHandler("calendar.xml",false);
 					}
-					calDays = (LinkedList<CalDay>) dhfile.getApptRange(day1,day2);
 					
 					if(saveFile!=50) {
 						output = dhfile.saveAppt(appt);
@@ -125,7 +124,48 @@ public class DataHandlerRandomTest {
 						}
 					}
 					dhfile.deleteAppt(appt);
-
+					
+					dhfile.saveAppt(appt);
+					int numAppts=ValuesGenerator.getRandomIntBetween(random, 1, 11);
+					for(int i=0; i<numAppts; i++) {
+						Appt appt1 = new Appt(startHour, startMinute, startDay, startMonth, startYear, title, description, emailAddress);
+						if((i%2)==0) {
+							startHour=ValuesGenerator.getRandomIntBetween(random, 0, 11);
+							startMinute=ValuesGenerator.getRandomIntBetween(random, 0, 59);
+						}
+						else {
+							startHour=ValuesGenerator.getRandomIntBetween(random, 12, 23);
+							startMinute=ValuesGenerator.getRandomIntBetween(random, 0, 59);
+						}
+						if(i==5) {
+							startHour=ValuesGenerator.getRandomIntBetween(random, 0, 23);
+							startMinute=ValuesGenerator.getRandomIntBetween(random, 0, 59);
+							int sizeArray=ValuesGenerator.getRandomIntBetween(random, 0, 8);
+							int []recurDays=ValuesGenerator.generateRandomArray(random, sizeArray);
+							int recur=ApptRandomTest.RandomSelectRecur(random);
+							int recurIncrement = ValuesGenerator.RandInt(random);
+							int recurNumber = ApptRandomTest.RandomSelectRecurForEverNever(random);
+							appt.setRecurrence(recurDays, recur, recurIncrement, recurNumber);
+						}
+						appt1.setStartHour(startHour);
+						appt1.setStartMinute(startMinute);
+						appt1.setValid();
+						dhfile.saveAppt(appt1);
+					}
+					calDays = (LinkedList<CalDay>) dhfile.getApptRange(day1,day2);
+					Appt appt2 = new Appt(startHour, startMinute, startDay, startMonth, 
+							startYear+1, title, description, emailAddress);
+					appt2.setValid();
+					dhfile.saveAppt(appt2);
+					
+					for(int i=0; i< calDays.size();i++) {
+						LinkedList<Appt> apptlist = calDays.get(i).getAppts();
+						for(int j=0; j < apptlist.size();j++){
+							Appt apptOutput=apptlist.get(j);
+							apptOutput.setValid();
+							assertTrue(apptOutput.getValid());
+						}
+					}
 					
 					elapsed = (Calendar.getInstance().getTimeInMillis() - startTime);
 					//if((iteration%1000000)==0 && iteration!=0 ) { System.out.println("test: " + iteration + ", elapsed time: " + elapsed + " of "+TestTimeout);}
