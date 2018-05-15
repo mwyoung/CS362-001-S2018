@@ -132,7 +132,7 @@ public class CalendarMain {
          
  		//get a list of appointments for one day, which is today
  		GregorianCalendar today = new GregorianCalendar(thisYear,thisMonth,thisDay);
- 		GregorianCalendar tomorrow = new GregorianCalendar(thisYear,thisMonth,thisDay);
+ 		GregorianCalendar tomorrow = new GregorianCalendar(thisYear,thisMonth,thisDay+1);
 
  		tomorrow.add(today.DAY_OF_MONTH,1);
 
