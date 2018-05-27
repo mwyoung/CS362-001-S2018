@@ -13,7 +13,7 @@ import java.util.GregorianCalendar;
 public class CalDayRandomTest {
 
 	// private static final long TestTimeout = 60 * 500 * 1; /* Timeout at 30 secs */
-	private static final long TestTimeout = 10 * 1000; // 1000 = 1 second
+	private static final long TestTimeout = 5 * 1000; // 1000 = 1 second
 	//private static final int NUM_TESTS = 100;
 
 	/**
