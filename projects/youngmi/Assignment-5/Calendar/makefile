@@ -1,6 +1,6 @@
 SHELL := /bin/bash
 
-default: test report 
+default: test  
 
 test: clean main
 	mvn test
