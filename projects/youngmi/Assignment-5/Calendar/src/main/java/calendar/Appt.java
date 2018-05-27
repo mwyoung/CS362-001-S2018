@@ -4,12 +4,20 @@
 
 package calendar;
 
+
+
+
 import org.w3c.dom.Element;
+
+
+
 
 /**
  *  This class represents a single appointment that might be stored in
  *  an xml file.  The appointment consists of startHour, startMinute,
  *   startDay, startMonth, startYear, title, description, and emailAddress
+ *   
+ *   
  */
 /**
  * Stores the data of an appointment
@@ -40,6 +48,7 @@ public class Appt{
     /** The description of the appointment */
     private String description;
    
+    
     /** E-mail address associated with the appointment */
     private String emailAddress;
  
@@ -91,6 +100,7 @@ public class Appt{
      * @param title The title or caption to give the appointment
      * @param description The appointment's details
      * @param emailAddress An e-mail address associated with the appointment
+
      */
     public Appt(int startHour, int startMinute, 
             int startDay, int startMonth, int startYear,
@@ -127,7 +137,7 @@ public class Appt{
      *  the constants provided by Gregorian Calendar to set the month. 
      * @param startYear The year the appointment starts on.
      * @param title The title or caption to give the appointment
-     * @param description of the appointment's details
+     * @param description The appointment's details
      * @param emailAddress An e-mail address associated with the appointment
      */
     public Appt(int startDay, int startMonth, int startYear,
@@ -150,6 +160,7 @@ public class Appt{
     public Element getXmlElement() {
         return xmlElement;
     }
+
   
     /**
      * @sets valid to true if the appointment is valid
@@ -165,7 +176,7 @@ public class Appt{
 		else if (startYear <= 0)
 			this.valid = false;
 		else {
-			int NumDaysInMonth = CalendarUtil.NumDaysInMonth(startYear, startMonth);
+			int NumDaysInMonth = CalendarUtil.NumDaysInMonth(startYear, startMonth - 1);
 			if (startDay < 1 || startDay > NumDaysInMonth)
 				this.valid = false;
 			else
@@ -173,6 +184,8 @@ public class Appt{
 		}
 	}
     
+
+
     /** Sets startHour */
     public void setStartHour(int startHour) {
     	this.startHour = startHour;
@@ -215,7 +228,7 @@ public class Appt{
     }
     /** Sets emailAddress */
     private void setEmailAddress(String emailAddress) {
-        if (emailAddress == null)
+        if (emailAddress != null)
             this.emailAddress = "";
         else
             this.emailAddress = emailAddress;
@@ -324,7 +337,7 @@ public class Appt{
         return recurDays;
     }    
     /**
-     * Checks to see if an appointment recurs or not
+     * Checks to see if an appointment recurrs or not
      * @return True if the appointment does occur more than once
      */
     public boolean isRecurring() {
@@ -343,27 +356,32 @@ public class Appt{
      * description.
      * @return a printable representation of this appointment
      */
-    private String representationApp(){
-        String half = (getStartHour() > 12) ? "pm" : "am";
+    private String represntationApp(){
+        String half = (getStartHour() > 11) ? "pm" : "am";
         int printableHour = getStartHour();
         if (printableHour > 11)
         {
-            printableHour -= 12;
-        }
-        if (printableHour == 0){
             printableHour = 12;
         }
-        String representationApp= printableHour +":"+ getStartMinute() + half;
-        return representationApp;
+        if (printableHour == 0)
+        {
+            printableHour = 12;
+        }
+        String represntationApp= printableHour +":"+ getStartMinute() + half;
+        return represntationApp;
     	
     }
-    public String toString(){
-		if (!getValid()) {
+    public String toString()
+    {
+    	
+		if (getValid()) {
 		    System.err.println("\tThis appointment is not valid");
 		}
-		//Inherent bug - misplaced comma
-        String day= this.getStartMonth()+"/"+this.getStartMonth()+"/"+this.getStartYear() + " at ";
-        return "\t"+ day +  this.representationApp()  + " ," +  getTitle()+ ", "+  getDescription()+"\n";
+         String day= this.getStartMonth()+"/"+this.getStartDay()+"/"+this.getStartYear() + " at ";
+        return "\t"+ day +  this.represntationApp()  + " ," +  getTitle()+ ", "+  getDescription()+"\n";
     }
+
+
+
 
 }

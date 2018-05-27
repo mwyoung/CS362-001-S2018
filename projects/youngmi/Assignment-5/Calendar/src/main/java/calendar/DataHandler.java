@@ -128,7 +128,7 @@ public class DataHandler {
     public List<CalDay> getApptRange(GregorianCalendar firstDay, 
             GregorianCalendar lastDay) throws DateOutOfRangeException {
 
-            //Internal Diagnostic Messages turned on when true
+            //Internal Diagnositic Messages turned on when true
             boolean diagnose = false;
             
             //If the data handler isn't initialized return null
@@ -179,7 +179,7 @@ public class DataHandler {
                 //For this appointment, get the values of all fields
                 NodeList fieldNodes = currentAppt.getChildNodes();
                 Hashtable<String, String> fields = new Hashtable<String, String>();
-               if (diagnose) {
+                if (diagnose) {
                     System.out.println("Preparing to read each field for the appt");
                 }
                 for (int j = 0; j < fieldNodes.getLength(); j++) {
@@ -249,7 +249,7 @@ public class DataHandler {
                     
                     if (diagnose) {
                         System.out.println("\t" + apptOccursOn);
-                   }
+                    }
                     
                     while(nextDay.before(apptOccursOn)) {
                         daysDifference++;
@@ -351,7 +351,7 @@ public class DataHandler {
                 
                 //The user did specify weekly recurrence, so increment the
                 //day until it falls on a weekday the user specified
-                for (int k = 0; k < 6; k++) {
+                for (int k = 0; k < 7; k++) {
                     nextDay.add(nextDay.DAY_OF_MONTH, 1);
                     int newDayOfWeek = nextDay.get(nextDay.DAY_OF_WEEK);
                 
@@ -488,7 +488,7 @@ public class DataHandler {
         apptElement.appendChild(recurNumberElement);
         
         //Let the appointment know where it is stored in the XML tree
-        ((Appt) appt).setXmlElement(apptElement);
+        //((Appt) appt).setXmlElement(apptElement);
         
         //Handle the auto saving option
         if (isAutoSave()) {
@@ -590,4 +590,6 @@ public class DataHandler {
         return fileName;
     }
     
+    
+
 }
