@@ -1,8 +1,8 @@
 SHELL := /bin/bash
 
-default: test report 
+default: test 
 
-test: clean main
+test: main
 	mvn test
 
 main: 
@@ -11,9 +11,6 @@ main:
 
 run: main
 	java -cp ./target/classes/ calendar.CalendarMain
-
-clean:
-	-rm -f calendar.xml calendar*.xml 
 
 jacoco: report
 report:

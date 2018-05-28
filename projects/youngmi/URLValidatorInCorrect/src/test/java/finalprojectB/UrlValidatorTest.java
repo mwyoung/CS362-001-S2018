@@ -12,27 +12,28 @@ public class UrlValidatorTest extends TestCase {
 		super(testName);
 	}
 
-	public void testManualTest()
-	{
-//You can use this function to implement your manual testing		
+	//For manual testing
+	public void testManualTest() { 
+		String[] schemes = {"http","https","ftp"};
+		UrlValidator urlValue = new UrlValidator(schemes, UrlValidator.ALLOW_ALL_SCHEMES);
+		assertFalse(urlValue.isValid("qwerty:43")); 	//first false test
+		assertTrue(urlValue.isValid("http://oregonstate.edu/"));
+	}
+	
+	//First Partition testing	
+	public void testYourFirstPartition(){
+	 	
+	}
+	
+	//Second Partition testing
+	public void testYourSecondPartition(){ 	
+
+	}
+	//more partitions?
+	
+	//For programming based testing
+	public void testIsValid(){
 		
-	}
-	
-	public void testYourFirstPartition()
-	{
-	 //You can use this function to implement your First Partition testing		
-
-	}
-	
-	public void testYourSecondPartition(){
-		 //You can use this function to implement your Second Partition testing		
-
-	}
-	//You need to create more test cases for your Partitions if you need to 
-	
-	public void testIsValid()
-	{
-		//You can use this function for programming based testing
 
 	}
 }
