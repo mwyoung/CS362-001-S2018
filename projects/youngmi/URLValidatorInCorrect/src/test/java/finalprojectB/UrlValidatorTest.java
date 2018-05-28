@@ -17,10 +17,29 @@ public class UrlValidatorTest extends TestCase {
 		assertFalse(urlValue.isValid("qwerty:43")); 	//first false test
 		assertTrue(urlValue.isValid("http://oregonstate.edu/"));
 		
+		//String[] testStrings = {"end"};
+		
 		//IP addresses
 		assertTrue(urlValue.isValid("http://example.org")); 
+		assertTrue(urlValue.isValid("http://93.184.215.34"));
+		assertTrue(urlValue.isValid("https://93.184.215.34"));
+		assertFalse(urlValue.isValid("ftp://93.184.215.34"));	//maybe?
 		assertTrue(urlValue.isValid("http://93.184.216.34/"));	//example.org
-		//assertTrue(urlValue.isValid("http://93.184.216.34:80"));
+/*!!*/	assertFalse(urlValue.isValid("http://93.184.216.34:80")); //!!Fails!!
+/*!!*/	assertFalse(urlValue.isValid("http://93.184.215.34/example/"));
+		
+
+
+		//assertTrue(urlValue.isValid("ftp://93.184.215.34/~example/"));
+		
+		//true URLs
+		assertTrue(urlValue.isValid("ftp://example.com"));
+
+		//False URLs
+		assertFalse(urlValue.isValid(""));
+		assertFalse(urlValue.isValid("example.org"));
+		
+		
 
 	}
 	
