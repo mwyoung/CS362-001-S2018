@@ -13,18 +13,19 @@ public class UrlValidatorTest extends TestCase {
 		String[] schemes = {"http","https","ftp"};	
 		UrlValidator urlValue = new UrlValidator(schemes);
 		
-		//two known false/true urls
-		assertFalse(urlValue.isValid("qwerty:43")); 	//first false test
-		assertFalse(urlValue.isValid("http://oregonstate.edu/")); //No EDU?
-		if(urlValue.isValid("http://oregonstate.com")){System.out.println("valid");} 
-		else { System.out.println("invalid");}	//testing
+		//known good url
 		
-		try {
-			if(urlValue.isValid("http://oregonstate.edu")){
-				System.out.println("valid");} 
-			else { System.out.println("invalid");}	//testing
-		} catch(Exception e) { //all exceptions
-			System.out.println("exception");
+		assertFalse(urlValue.isValid("http://www.google.com"));
+		
+		
+		String[] falseURLs = {"http://oregonstate.edu","qwerty"};
+		for(int i=0;i<falseURLs.length-1;i++) {
+			if(urlValue.isValid(falseURLs[i])){
+				System.out.println("valid: " + falseURLs[i]);
+			} 
+			else {
+				System.out.println("invalid: " + falseURLs[i]);
+			}	//testing
 		}
 		/*
 		//IP addresses
@@ -46,6 +47,7 @@ public class UrlValidatorTest extends TestCase {
 		assertFalse(urlValue.isValid(""));
 		assertFalse(urlValue.isValid("example.org"));
 */
+		//try{}catch(Exception e){}
 		//if(urlValue.isValid("http://oregonstate.com")){System.out.println("valid");} 
 		//else { System.out.println("invalid");}	//testing
 	}
