@@ -10,22 +10,33 @@ public class UrlValidatorTest extends TestCase {
 
 	//For manual testing
 	public void testManualTest() { 
-		String[] schemes = {"http","https","ftp"};	
-		UrlValidator urlValue = new UrlValidator(schemes);
+		//String[] schemes = {"http","https","ftp"}; //default
+		UrlValidator urlValue = new UrlValidator(null);
 		
 		//known good url
+		boolean firstOutput = urlValue.isValid("http://www.google.com");
+		assertFalse(firstOutput);	//does not work?
+		System.out.println("Outputs: " + firstOutput);
 		
-		assertFalse(urlValue.isValid("http://www.google.com"));
-		
-		
+		System.out.println("!!(valid/invalid) means output is bad");
 		String[] falseURLs = {"http://oregonstate.edu","qwerty"};
-		for(int i=0;i<falseURLs.length-1;i++) {
+		for(int i=0;i<falseURLs.length;i++) {
 			if(urlValue.isValid(falseURLs[i])){
-				System.out.println("valid: " + falseURLs[i]);
+				System.out.println("!!  valid: " + falseURLs[i]);
 			} 
 			else {
-				System.out.println("invalid: " + falseURLs[i]);
-			}	//testing
+				System.out.println("  invalid: " + falseURLs[i]);
+			}
+		}
+		String[] trueURLs = {"http://www.google.com","http://example.com", "http://example.com",
+				"http://www.example.com","ftp://example.com","http://example.com/"};
+		for(int i=0;i<trueURLs.length;i++) {
+			if(urlValue.isValid(trueURLs[i])){
+				System.out.println("    valid: " + trueURLs[i]);
+			} 
+			else {
+				System.out.println("!!invalid: " + trueURLs[i]);
+			}
 		}
 		/*
 		//IP addresses
