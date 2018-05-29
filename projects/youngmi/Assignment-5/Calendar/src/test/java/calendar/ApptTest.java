@@ -43,9 +43,8 @@ public class ApptTest {
 		//assertEquals("Recur By", 2, appt0.getRecurBy());
 		assertFalse("Is Recurring", appt0.isRecurring());
 		
-		assertEquals("Output string", "\t4/4/2018 at 3:30pm ,Birthday Party, This is my birthday party\n", string0);
+		assertEquals("Output string", "\t4/9/2018 at 3:30pm ,Birthday Party, This is my birthday party\n", string0);
 		assertEquals("Recur Increment", 0, appt0.getRecurIncrement());
-		
 	}
 	
 	@Test(timeout = 4000)
@@ -67,7 +66,6 @@ public class ApptTest {
 		assertTrue("Valid", appt0.getValid());
 	}
 	
-	 
 	@Test(timeout = 4000)
 	public void test01() throws Throwable {
 		Appt appt1 = new Appt(15, 30, 9, 4, 2018, "Birthday Party", "This is my birthday party", "xyz@gmail.com");
@@ -88,6 +86,22 @@ public class ApptTest {
 		assertTrue("Is Valid", appt1.getValid());
 		assertFalse("No Recur", appt1.isRecurring());
 	}
+
+	//test null
+	@Test(timeout = 4000)
+	public void test01_1() throws Throwable {
+		Appt appt1 = new Appt(9, 4, 2018, null, null, null);
+		assertEquals("Min", 30, appt1.getStartMinute());
+		assertEquals("Hour", 15, appt1.getStartHour());
+		assertEquals("Day", 9, appt1.getStartDay());
+		assertEquals("Month", 4, appt1.getStartMonth());
+		assertEquals("Year", 2018, appt1.getStartYear());
+		assertEquals("Title", null, appt1.getTitle());
+		assertEquals("Desc", null, appt1.getDescription());
+		assertEquals("Email", null, appt1.getEmailAddress());
+		assertFalse("Time", appt1.hasTimeSet());
+	}
+	
 	//time at 0 hours
 	@Test(timeout = 4000)
 	public void test02() throws Throwable {

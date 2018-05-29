@@ -11,7 +11,6 @@ import java.util.LinkedList;
 
 public class CalDayTest{
 	
-	
 	//Test setting up multiple appointments
 	@Test(timeout = 4000)
 	public void test00()	throws Throwable	{
@@ -69,8 +68,8 @@ public class CalDayTest{
 
 		//test string
 		String strOut = calday0.getFullInfomrationApp(calday0);
-		String strTest = "5-9-2018 \n\t3:30PM Birthday Party This is my birthday party "
-				+ "\n\t12:08AM Test 2 Test calday ";
+		String strTest = "5-9-2018 " + "\n\t12:08AM Test 2 Test calday " + 
+				"\n\t3:30PM Birthday Party This is my birthday party ";
 		System.out.println(strOut);
 		System.out.println(strTest);
 		assertEquals("Compare output with test", strTest, strOut);
