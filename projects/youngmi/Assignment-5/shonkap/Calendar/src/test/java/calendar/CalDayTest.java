@@ -99,7 +99,7 @@ public class CalDayTest{
 		assertEquals("size", 2, calday0.getSizeAppts());
 		LinkedList<Appt> apptlist = calday0.getAppts();
 		Appt appt2 = apptlist.get(0);
-		assertEquals("str", appt0.toString(), appt2.toString() );
+		assertEquals("str", appt1.toString(), appt2.toString() );
 	}
 	
 	//Test linked list
@@ -226,7 +226,7 @@ public class CalDayTest{
 		String strOut = calday0.toString();
 		String strTest = "\t --- 6/9/2018 --- \n"
 				+ " --- -------- Appointments ------------ --- \n"
-				+ "\t4/4/2018 at 3:30pm ,Birthday Party, This is my birthday party\n \n";
+				+ "\t4/9/2018 at 3:30pm ,Birthday Party, This is my birthday party\n \n";
 		System.out.println(strOut);
 		System.out.println(strTest);
 		assertEquals("toString", strTest, strOut);

@@ -69,6 +69,12 @@ public class CalDayRandomTest {
 
 		try {
 			for (iteration = 0; elapsed < TestTimeout; iteration++) {
+				elapsed = (Calendar.getInstance().getTimeInMillis() - startTime);
+				if (((elapsed % 500) == 0) && (iteration != 0) && (oldElapsed != elapsed)) {
+					System.out.println("test: " + iteration + ", elapsed time: " + elapsed + " of " + TestTimeout);
+					oldElapsed = elapsed;
+				}
+				
 				long randomseed = System.currentTimeMillis(); // 10
 				// System.out.println(" Seed:"+randomseed );
 				Random random = new Random(randomseed);
@@ -117,11 +123,7 @@ public class CalDayRandomTest {
 					}
 					assertEquals(1+numAppts,calday.getSizeAppts());
 				}
-				elapsed = (Calendar.getInstance().getTimeInMillis() - startTime);
-				if (((elapsed % 500) == 0) && (iteration != 0) && (oldElapsed != elapsed)) {
-					System.out.println("test: " + iteration + ", elapsed time: " + elapsed + " of " + TestTimeout);
-					oldElapsed = elapsed;
-				}
+
 
 			}
 		} catch (NullPointerException e) {

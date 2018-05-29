@@ -68,9 +68,9 @@ public class ApptTest {
 	
 	@Test(timeout = 4000)
 	public void test01() throws Throwable {
-		Appt appt1 = new Appt(15, 30, 9, 4, 2018, "Birthday Party", "This is my birthday party", "xyz@gmail.com");
+		Appt appt1 = new Appt(16, 30, 9, 4, 2018, "Birthday Party", "This is my birthday party", "xyz@gmail.com");
 		assertEquals("Min", 30, appt1.getStartMinute());
-		assertEquals("Hour", 15, appt1.getStartHour());
+		assertEquals("Hour", 16, appt1.getStartHour());
 		assertEquals("Day", 9, appt1.getStartDay());
 		assertEquals("Month", 4, appt1.getStartMonth());
 		assertEquals("Year", 2018, appt1.getStartYear());
@@ -91,14 +91,13 @@ public class ApptTest {
 	@Test(timeout = 4000)
 	public void test01_1() throws Throwable {
 		Appt appt1 = new Appt(9, 4, 2018, null, null, null);
-		assertEquals("Min", 30, appt1.getStartMinute());
-		assertEquals("Hour", 15, appt1.getStartHour());
+		appt1.setValid();
 		assertEquals("Day", 9, appt1.getStartDay());
 		assertEquals("Month", 4, appt1.getStartMonth());
 		assertEquals("Year", 2018, appt1.getStartYear());
-		assertEquals("Title", null, appt1.getTitle());
-		assertEquals("Desc", null, appt1.getDescription());
-		assertEquals("Email", null, appt1.getEmailAddress());
+		assertEquals("Title", "", appt1.getTitle());
+		assertEquals("Desc", "", appt1.getDescription());
+		assertEquals("Email", "", appt1.getEmailAddress());
 		assertFalse("Time", appt1.hasTimeSet());
 	}
 	

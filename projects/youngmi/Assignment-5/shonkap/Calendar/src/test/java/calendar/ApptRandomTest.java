@@ -65,6 +65,13 @@ public class ApptRandomTest {
 		 
 		 try{ 
 			for (iteration = 0; elapsed < TestTimeout; iteration++) {
+				elapsed = (Calendar.getInstance().getTimeInMillis() - startTime);
+				//if((iteration%1000000)==0 && iteration!=0 ) { System.out.println("test: " + iteration + ", elapsed time: " + elapsed + " of "+TestTimeout);}
+				if(((elapsed%500)==0) && (iteration!=0) && (oldElapsed != elapsed)) { 
+					System.out.println("test: " + iteration + ", elapsed time: " + elapsed + " of "+TestTimeout); 
+					oldElapsed = elapsed;
+				}  
+				
 				long randomseed =System.currentTimeMillis(); //10
 				//System.out.println(" Seed:"+randomseed );
 				Random random = new Random(randomseed);
@@ -131,12 +138,7 @@ public class ApptRandomTest {
 						}				
 					}
 				}
-				elapsed = (Calendar.getInstance().getTimeInMillis() - startTime);
-				//if((iteration%1000000)==0 && iteration!=0 ) { System.out.println("test: " + iteration + ", elapsed time: " + elapsed + " of "+TestTimeout);}
-				if(((elapsed%500)==0) && (iteration!=0) && (oldElapsed != elapsed)) { 
-					System.out.println("test: " + iteration + ", elapsed time: " + elapsed + " of "+TestTimeout); 
-					oldElapsed = elapsed;
-				}  
+
 
 			}
 		}catch(NullPointerException e){

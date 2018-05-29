@@ -130,7 +130,7 @@ public class DataHandlerTest{
 		Appt appt2 = apptlist.get(0);
 		String string0 = appt2.toString();
 		//assertEquals("string","\t4/3/2018 at 5:30am ,A2, Appt2\n", string0);
-		assertEquals("string","\t4/4/2018 at 5:50am ,, \n", string0);
+		assertEquals("string","\t4/5/2018 at 5:50am ,, \n", string0);
 	}
 	
 	//recur yearly

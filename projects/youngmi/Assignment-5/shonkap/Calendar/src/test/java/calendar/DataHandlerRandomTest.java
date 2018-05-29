@@ -65,6 +65,13 @@ public class DataHandlerRandomTest {
 			 
 			 try{ 
 				for (iteration = 0; elapsed < TestTimeout; iteration++) {
+					elapsed = (Calendar.getInstance().getTimeInMillis() - startTime);
+					if ((elapseTrigger==1) && (oldElapsed != elapsed)) { 
+						System.out.println("test: " + iteration + ", elapsed time: " + elapsed + " of "+TestTimeout); 
+						oldElapsed = elapsed;
+						elapseTrigger = 0;
+					}
+					
 					long randomseed =System.currentTimeMillis(); //10
 					//System.out.println(" Seed:"+randomseed );
 					Random random = new Random(randomseed);
@@ -197,12 +204,7 @@ public class DataHandlerRandomTest {
 						}
 					}
 					
-					elapsed = (Calendar.getInstance().getTimeInMillis() - startTime);
-					if ((elapseTrigger==1) && (oldElapsed != elapsed)) { 
-						System.out.println("test: " + iteration + ", elapsed time: " + elapsed + " of "+TestTimeout); 
-						oldElapsed = elapsed;
-						elapseTrigger = 0;
-					}  
+  
 
 				}
 			}catch(NullPointerException e){
