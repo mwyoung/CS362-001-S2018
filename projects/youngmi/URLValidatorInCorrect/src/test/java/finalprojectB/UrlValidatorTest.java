@@ -9,9 +9,11 @@ public class UrlValidatorTest extends TestCase {
 	}
 
 	//For manual testing
-	public void testManualTest() { 
+	public void testManualTest(long initialVal) { 
+		System.out.println("Starting manual tests");
 		//String[] schemes = {"http","https","ftp"}; //default
 		UrlValidator urlValue = new UrlValidator(null);
+		//UrlValidator urlValue = new UrlValidator(UrlValidator.ALLOW_ALL_SCHEMES);
 		
 		//known good url
 		boolean firstOutput = urlValue.isValid("http://www.google.com");
