@@ -9,15 +9,15 @@ public class UrlValidatorTest extends TestCase {
 	}
 
 	//For manual testing
-	public void testManualTest(long initialVal) { 
+	public void testManualTest() { 
 		System.out.println("Starting manual tests");
 		//String[] schemes = {"http","https","ftp"}; //default
-		UrlValidator urlValue = new UrlValidator(null);
-		//UrlValidator urlValue = new UrlValidator(UrlValidator.ALLOW_ALL_SCHEMES);
+		//UrlValidator urlValue = new UrlValidator(null);
+		UrlValidator urlValue = new UrlValidator(UrlValidator.ALLOW_ALL_SCHEMES);
 		
 		//known good url
 		boolean firstOutput = urlValue.isValid("http://www.google.com");
-		assertFalse(firstOutput);	//does not work?
+		//assertTrue(firstOutput);	//does not work with null?
 		System.out.println("Known good output: " + firstOutput);
 		
 		//bad url
@@ -25,50 +25,50 @@ public class UrlValidatorTest extends TestCase {
 		
 		System.out.println("!!(valid/invalid) means output is bad\n");
 		
-		String[] falseURLs = {"http://oregonstate.edu","qwerty","://lkjfdsa;lkjfdsa"};
-		int falseURLs_valid = 0;
+		String[] falseURLs = {"http://oregonstate.%edu","qwerty","://lkjfdsa;lkjfdsa"};
+		int n_valid = 0;	//number of valid
 		for(int i=0;i<falseURLs.length;i++) {
 			if(urlValue.isValid(falseURLs[i])){
 				System.out.println("!!  valid: " + falseURLs[i]);
 			} 
 			else {
 				//System.out.println("  invalid: " + falseURLs[i]);
-				falseURLs_valid = falseURLs_valid++;
+				++n_valid;
 			}
 		}
-		System.out.println("False URLs test: " + (falseURLs_valid/falseURLs.length) + "% (" + 
-				falseURLs_valid + " of " + falseURLs.length + ")\n");
+		System.out.println("False URLs test: " + ((n_valid*100)/falseURLs.length) + "% (" + 
+				n_valid + " of " + falseURLs.length + ")\n");
 		
 		String[] trueURLs = {"http://www.google.com","http://example.com", "http://example.com",
-				"http://www.example.com","ftp://example.com","http://example.com/"};
-		int trueURLs_valid = 0;
+				"http://www.example.com"};//,"ftp://example.com","http://example.com/"};
+		n_valid = 0;
 		for(int i=0;i<trueURLs.length;i++) {
 			if(urlValue.isValid(trueURLs[i])){
 				//System.out.println("    valid: " + trueURLs[i]);
-				trueURLs_valid = trueURLs_valid++;
+				++n_valid;
 			} 
 			else {
 				System.out.println("!!invalid: " + trueURLs[i]);
 			}
 		}
-		System.out.println("True URLs test: " + (trueURLs_valid/trueURLs.length) + "% (" + 
-				trueURLs_valid + " of " + trueURLs.length + ")\n");
+		System.out.println("True URLs test: " + ((n_valid*100)/trueURLs.length)*100 + "% (" + 
+				n_valid + " of " + trueURLs.length + ")\n");
 		
-		String[] trueIPs = {"http://93.184.215.34","https://93.184.215.34","ftp://93.184.215.34",
-				"http://93.184.216.34/","http://93.184.216.34:80","http://93.184.215.34/example/",
-				"ftp://93.184.215.34/~example/"};
-		int trueIPs_valid = 0;
+		String[] trueIPs = {"http://93.184.215.34","http://93.184.216.34/",
+				"http://93.184.216.34:80","http://93.184.215.34/example/",
+				"http://93.184.215.34/~example/"};//"https://93.184.215.34","ftp://93.184.215.34"};
+		n_valid = 0;
 		for(int i=0;i<trueIPs.length;i++) {
 			if(urlValue.isValid(trueIPs[i])){
-				//System.out.println("    valid: " + trueIPs[i]);
-				trueIPs_valid = trueIPs_valid++;
+				System.out.println("    valid: " + trueIPs[i]);
+				++n_valid;
 			} 
 			else {
 				System.out.println("!!invalid: " + trueIPs[i]);
 			}
 		}
-		System.out.println("True IPs test: " + (trueIPs_valid/trueIPs.length) + "% (" + 
-				trueIPs_valid + " of " + trueIPs.length + ")\n");
+		System.out.println("True IPs test: " + ((n_valid*1)/trueIPs.length)*100 + "% (" + 
+				n_valid + " of " + trueIPs.length + ")\n");
 
 		//try{}catch(Exception e){}
 		//if(urlValue.isValid("http://oregonstate.com")){System.out.println("valid");} 
