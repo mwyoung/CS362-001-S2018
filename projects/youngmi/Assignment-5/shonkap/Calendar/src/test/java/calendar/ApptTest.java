@@ -66,7 +66,7 @@ public class ApptTest {
 		assertTrue("Valid", appt0.getValid());
 	}
 	
-	@Test(timeout = 4000)
+	@Test()//timeout = 4000)
 	public void test01() throws Throwable {
 		Appt appt1 = new Appt(16, 30, 9, 4, 2018, "Birthday Party", "This is my birthday party", "xyz@gmail.com");
 		assertEquals("Min", 30, appt1.getStartMinute());
