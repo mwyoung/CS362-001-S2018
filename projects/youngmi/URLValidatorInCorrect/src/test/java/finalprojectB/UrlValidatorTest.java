@@ -159,8 +159,9 @@ public class UrlValidatorTest extends TestCase {
 	}
 	public void testPartition1_allftp(){
 		System.out.println("Starting first partition test, ftp");
-		//String[] schemes = {"http","https","ftp"}; //default
-		UrlValidator urlValue = new UrlValidator(null,null,UrlValidator.ALLOW_ALL_SCHEMES);
+		String[] schemes = {"http","https","ftp"}; //default
+		UrlValidator urlValue = new UrlValidator(schemes);
+		//UrlValidator urlValue = new UrlValidator(null,null,UrlValidator.ALLOW_ALL_SCHEMES);
 		try {
 			String[] trueURLs = { "ftp://example.com", "ftp://www.example.com","ftp://www.example.com/" };
 			for (int i = 0; i < trueURLs.length; i++) {
@@ -264,9 +265,64 @@ public class UrlValidatorTest extends TestCase {
 		assertFalse(urlValue.isValid("ftp://example.com")); //is false
 	}	
 	
+	
 	//For programming based testing
 	public void testIsValid(){
+		System.out.println("Starting programming based test");
+		String[] schemes = {"http","https"}; //default
+		UrlValidator urlValue = new UrlValidator(schemes);
+		String[] URLs = {"http://","https://","","ftp://", //valid
+				"htp://","http:","http//","://","l;kjafds;"}; //invalid
+		String[] Domain = {"example.com", "google.com", "test.com","0.0.0.0","192.168.1.1",
+				"example.",".example.com","0.0.0.","0.0.0.0.","","432.234.432.234"};
+		String[] Port = {":80","",
+				":ds",":84a",":---"};
+		String[] Path = {"","/example","/file/path","/",
+				"...","","/....../fdsalkj","//"};
+		String[] End = {"?do=thing","",
+				"?  ?", "^^^^","|"};
+		boolean validOutput;
+		int correct = 0;
+		int incorrect = 0;
 		
-
+		for(int i=0; i<URLs.length-1;i++) {
+			for(int j=0; j<Domain.length-1;j++) {
+				for(int k=0; k<Port.length-1;k++) {
+					for(int l=0; l<Path.length-1;l++) {
+						for(int m=0; m<End.length-1;m++) {
+							String fullURL = URLs[i] + Domain[j] + Port[k] + Path[l] + End[m];
+							if((i<3)&&(j<5)&&(k<2)&&(l<4)&&(m<2)) validOutput = true;
+							else validOutput = false;
+							
+							try {
+								// test if valid
+								if (urlValue.isValid(fullURL)) {
+									if (validOutput) {
+										// good to go
+										++correct;
+									} else {
+										System.out.println("!!invalid: " + fullURL);
+										++incorrect;
+									}
+								} else {
+									if (validOutput) {
+										System.out.println("Wrong invalid: " + fullURL);
+										++incorrect;
+									} else { // is invalid
+										++correct; // correct
+									}
+								}
+							} catch (Exception e) {
+								System.out.println("Exception " + e + " with " + fullURL);
+							}
+						}
+					}
+				}
+			}
+		}
+		int total = (URLs.length)*(Domain.length)*(Port.length)*(Path.length)*(End.length);
+		System.out.println("Correct: " + correct + " Incorrect: " + incorrect + 
+				" Total: " + total);
 	}
+	
 }
