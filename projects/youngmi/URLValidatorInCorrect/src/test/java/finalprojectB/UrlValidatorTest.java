@@ -269,7 +269,7 @@ public class UrlValidatorTest extends TestCase {
 	//For programming based testing
 	public void testIsValid(){
 		System.out.println("Starting programming based test");
-		String[] schemes = {"http","https"}; //default
+		String[] schemes = {"http","https","ftp"}; //default
 		UrlValidator urlValue = new UrlValidator(schemes);
 		String[] URLs = {"http://","https://","","ftp://", //valid
 				"htp://","http:","http//","://","l;kjafds;"}; //invalid
