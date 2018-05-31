@@ -271,6 +271,8 @@ public class UrlValidatorTest extends TestCase {
 		System.out.println("Starting programming based test");
 		String[] schemes = {"http","https","ftp"}; //default
 		UrlValidator urlValue = new UrlValidator(schemes);
+		
+		//store values
 		String[] URLs = {"http://","https://","","ftp://", //valid
 				"htp://","http:","http//","://","l;kjafds;"}; //invalid
 		String[] Domain = {"example.com", "google.com", "test.com","0.0.0.0","192.168.1.1",
@@ -285,12 +287,15 @@ public class UrlValidatorTest extends TestCase {
 		int correct = 0;
 		int incorrect = 0;
 		
+		//loop through all strings
 		for(int i=0; i<URLs.length-1;i++) {
 			for(int j=0; j<Domain.length-1;j++) {
 				for(int k=0; k<Port.length-1;k++) {
 					for(int l=0; l<Path.length-1;l++) {
 						for(int m=0; m<End.length-1;m++) {
+							//build string
 							String fullURL = URLs[i] + Domain[j] + Port[k] + Path[l] + End[m];
+							//check if valid
 							if((i<3)&&(j<5)&&(k<2)&&(l<4)&&(m<2)) validOutput = true;
 							else validOutput = false;
 							
@@ -298,8 +303,7 @@ public class UrlValidatorTest extends TestCase {
 								// test if valid
 								if (urlValue.isValid(fullURL)) {
 									if (validOutput) {
-										// good to go
-										++correct;
+										++correct; // good to go
 									} else {
 										System.out.println("!!invalid: " + fullURL);
 										++incorrect;
@@ -308,11 +312,11 @@ public class UrlValidatorTest extends TestCase {
 									if (validOutput) {
 										System.out.println("Wrong invalid: " + fullURL);
 										++incorrect;
-									} else { // is invalid
+									} else { // is supposed to be invalid
 										++correct; // correct
 									}
 								}
-							} catch (Exception e) {
+							} catch (Exception e) {	//in case of errors, catch output
 								System.out.println("Exception " + e + " with " + fullURL);
 							}
 						}
@@ -320,6 +324,7 @@ public class UrlValidatorTest extends TestCase {
 				}
 			}
 		}
+		//get results
 		int total = (URLs.length)*(Domain.length)*(Port.length)*(Path.length)*(End.length);
 		System.out.println("Correct: " + correct + " Incorrect: " + incorrect + 
 				" Total: " + total);
