@@ -97,15 +97,92 @@ public class UrlValidatorTest extends TestCase {
 	}
 	
 	//First Partition testing	
-	public void testYourFirstPartition(){
-	 	
+	public void testPartition1(){
+		System.out.println("Starting first partition test, default schemes");
+		//String[] schemes = {"http","https","ftp"}; //default
+		UrlValidator urlValue = new UrlValidator(null);
+		try {
+			String[] trueURLs = { "http://www.google.com", "http://example.com", "http://example.com",
+					"http://www.example.com", "ftp://example.com", "http://example.com/" };
+			for (int i = 0; i < trueURLs.length; i++) {
+				if (urlValue.isValid(trueURLs[i])) {
+					System.out.println("    valid: " + trueURLs[i]);
+				} else {
+					System.out.println("!!invalid: " + trueURLs[i]);
+				}
+				//assertTrue(trueURLs[i],urlValue.isValid(trueURLs[i]));
+			} 
+		} catch (Exception e) {
+			System.out.println("TrueURL error: " + e.getMessage());
+		}
+	}
+	
+	//First Partition testing	
+	public void testPartition1_all(){
+		System.out.println("Starting first partition test, all schemes");
+		//String[] schemes = {"http","https","ftp"}; //default
+		UrlValidator urlValue = new UrlValidator(null,null,UrlValidator.ALLOW_ALL_SCHEMES);
+		try {
+			String[] trueURLs = { "http://www.google.com", "http://example.com", "http://example.com",
+					"http://www.example.com", "ftp://example.com", "http://example.com/" };
+			for (int i = 0; i < trueURLs.length; i++) {
+				if (urlValue.isValid(trueURLs[i])) {
+					System.out.println("    valid: " + trueURLs[i]);
+				} else {
+					System.out.println("!!invalid: " + trueURLs[i]);
+				}
+				//assertTrue(trueURLs[i],urlValue.isValid(trueURLs[i]));
+			} 
+		} catch (Exception e) {
+			System.out.println("TrueURL error: " + e.getMessage());
+		}
 	}
 	
 	//Second Partition testing
-	public void testYourSecondPartition(){ 	
-
+	public void testPartition2(){
+		System.out.println("Starting second partition test");
+		String[] schemes = {"http","https"}; //default
+		UrlValidator urlValue = new UrlValidator(schemes);
+		try {
+			String[] trueURLs = { "http://www.google.com", "http://example.com", "http://example.com",
+					"http://www.example.com", "http://example.com/" };
+			for (int i = 0; i < trueURLs.length; i++) {
+				if (urlValue.isValid(trueURLs[i])) {
+					System.out.println("    valid: " + trueURLs[i]);
+				} else {
+					System.out.println("!!invalid: " + trueURLs[i]);
+				}
+				//assertTrue(trueURLs[i],urlValue.isValid(trueURLs[i]));
+			} 
+		} catch (Exception e) {
+			System.out.println("TrueURL error: " + e.getMessage());
+		}
+		assertFalse(urlValue.isValid("ftp://example.com")); //is false
 	}
-	//more partitions?
+	
+	//third Partition testing
+	public void testPartition3(){
+		System.out.println("Starting third partition test");
+		String[] schemes = {"http","https"}; //default
+		UrlValidator urlValue = new UrlValidator(schemes);
+		try {
+			String[] trueURLs = { "http://www.example.com/", "http://example.com:80", 
+					"http://example.com/123", "http://www.example.com/abc/", 
+					"http://example.com/abc/?do=view","http://example.com?do=view",
+					"http://example.com/fdlkjfads"};
+			for (int i = 0; i < trueURLs.length; i++) {
+				if (urlValue.isValid(trueURLs[i])) {
+					System.out.println("    valid: " + trueURLs[i]);
+				} else {
+					System.out.println("!!invalid: " + trueURLs[i]);
+				}
+				//assertTrue(trueURLs[i],urlValue.isValid(trueURLs[i]));
+			} 
+		} catch (Exception e) {
+			System.out.println("TrueURL error: " + e.getMessage());
+		}
+		assertFalse(urlValue.isValid("ftp://example.com")); //is false
+	}	
 	
 	//For programming based testing
 	public void testIsValid(){
