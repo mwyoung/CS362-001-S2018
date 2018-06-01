@@ -265,7 +265,6 @@ public class UrlValidatorTest extends TestCase {
 		assertFalse(urlValue.isValid("ftp://example.com")); //is false
 	}	
 	
-	
 	//For programming based testing
 	public void testIsValid(){
 		System.out.println("Starting programming based test");
@@ -328,6 +327,5 @@ public class UrlValidatorTest extends TestCase {
 		int total = (URLs.length)*(Domain.length)*(Port.length)*(Path.length)*(End.length);
 		System.out.println("Correct: " + correct + " Incorrect: " + incorrect + 
 				" Total: " + total);
-	}
-	
+	}	
 }
