@@ -79,6 +79,9 @@ public class UrlValidatorTest extends TestCase {
 			System.out.println("TrueURL error: " + e.getMessage());
 		}
 		
+		//test null
+		assertNull(urlValue.isValid(null));
+		
 		//try{}catch(Exception e){}
 		//if(urlValue.isValid("http://oregonstate.com")){System.out.println("valid");} 
 		//else { System.out.println("invalid");}	//testing
@@ -273,7 +276,7 @@ public class UrlValidatorTest extends TestCase {
 		
 		//store values
 		String[] URLs = {"http://","https://","","ftp://", //valid
-				"htp://","http:","http//","://","l;kjafds;"}; //invalid
+				"htp://","http:","http//","://","l;kjafds;","HTTP://"}; //invalid
 		String[] Domain = {"example.com", "google.com", "test.com","0.0.0.0","192.168.1.1",
 				"example.",".example.com","0.0.0.","0.0.0.0.","","432.234.432.234"};
 		String[] Port = {":80","",
