@@ -87,15 +87,11 @@ public class UrlValidatorTest extends TestCase {
 		//if(urlValue.isValid("http://oregonstate.com")){System.out.println("valid");} 
 		//else { System.out.println("invalid");}	//testing
 	}
-	public void testManualTest_crash() {
+	public void testManualTest_default() {
 		UrlValidator urlValue = new UrlValidator(null);
-		try {
 		assertTrue(urlValue.isValid("http://www.google.com")); //does not work
-		} catch (Exception e) {
-			System.out.println("Crash error: " + e.getMessage());
-		}
 	}
-	public void testManualTest_pass() {
+	public void testManualTest_all() {
 		UrlValidator urlValue = new UrlValidator(null,null,UrlValidator.ALLOW_ALL_SCHEMES);
 		assertTrue(urlValue.isValid("http://www.google.com")); //does work
 	}
