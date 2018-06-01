@@ -79,8 +79,10 @@ public class UrlValidatorTest extends TestCase {
 			System.out.println("TrueURL error: " + e.getMessage());
 		}
 		
+		new UrlValidator();
 		//test null
-		assertNull(urlValue.isValid(null));
+		//UrlValidator urlValue2 = UrlValidator.getInstance(); 
+		assertFalse(urlValue.isValid(null));
 		
 		//try{}catch(Exception e){}
 		//if(urlValue.isValid("http://oregonstate.com")){System.out.println("valid");} 
@@ -147,7 +149,7 @@ public class UrlValidatorTest extends TestCase {
 		UrlValidator urlValue = new UrlValidator(null,null,UrlValidator.ALLOW_ALL_SCHEMES);
 		try {
 			String[] trueURLs = { "http://www.google.com", "http://example.com", "http://example.com",
-					"http://www.example.com", "http://example.com/" };
+					"http://www.example.com", "http://example.com/"};
 			for (int i = 0; i < trueURLs.length; i++) {
 				if (urlValue.isValid(trueURLs[i])) {
 					System.out.println("    valid: " + trueURLs[i]);
@@ -159,6 +161,7 @@ public class UrlValidatorTest extends TestCase {
 		} catch (Exception e) {
 			System.out.println("TrueURL error: " + e.getMessage());
 		}
+		
 	}
 	public void testPartition1_allftp(){
 		System.out.println("Starting first partition test, ftp");
@@ -276,15 +279,15 @@ public class UrlValidatorTest extends TestCase {
 		
 		//store values
 		String[] URLs = {"http://","https://","","ftp://", //valid
-				"htp://","http:","http//","://","l;kjafds;","HTTP://"}; //invalid
+				"htp://","http:","http//","://","l;kjafds;","HTTP://",null,"htt:p//", "file://"}; //invalid
 		String[] Domain = {"example.com", "google.com", "test.com","0.0.0.0","192.168.1.1",
-				"example.",".example.com","0.0.0.","0.0.0.0.","","432.234.432.234"};
+				"example.",".example.com","0.0.0.","0.0.0.0.","","432.234.432.234",null};
 		String[] Port = {":80","",
-				":ds",":84a",":---"};
+				":ds",":84a",":---",null};
 		String[] Path = {"","/example","/file/path","/",
-				"...","","/....../fdsalkj","//"};
+				"...","","/....../fdsalkj","//","/../","/..",null};
 		String[] End = {"?do=thing","",
-				"?  ?", "^^^^","|"};
+				"?  ?", "^^^^","|",null};
 		boolean validOutput;
 		int correct = 0;
 		int incorrect = 0;
