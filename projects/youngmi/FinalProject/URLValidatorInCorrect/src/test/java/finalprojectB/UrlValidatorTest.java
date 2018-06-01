@@ -79,7 +79,6 @@ public class UrlValidatorTest extends TestCase {
 			System.out.println("TrueURL error: " + e.getMessage());
 		}
 		
-		new UrlValidator();
 		//test null
 		//UrlValidator urlValue2 = UrlValidator.getInstance(); 
 		assertFalse(urlValue.isValid(null));
