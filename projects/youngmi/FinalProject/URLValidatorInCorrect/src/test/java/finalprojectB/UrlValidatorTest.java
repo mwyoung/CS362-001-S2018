@@ -27,7 +27,7 @@ public class UrlValidatorTest extends TestCase {
 		int n_valid = 0;	//number of valid
 		
 		try {
-			String[] falseURLs = { "http://oregonstate.%edu", "qwerty", "://lkjfdsa;lkjfdsa" };
+			String[] falseURLs = { "http://oregonstate.%edu", "qwerty", "://lkjfdsa;lkjfdsa",null};
 			for (int i = 0; i < falseURLs.length; i++) {
 				if (urlValue.isValid(falseURLs[i])) {
 					System.out.println("!!  valid: " + falseURLs[i]);
@@ -269,12 +269,12 @@ public class UrlValidatorTest extends TestCase {
 	//For programming based testing
 	public void testIsValid(){
 		System.out.println("Starting programming based test");
-		String[] schemes = {"http","https","ftp"}; //default
+		String[] schemes = {"http","https","ftp","HTTP","HTTPS"}; //default
 		UrlValidator urlValue = new UrlValidator(schemes);
 		
 		//store values
-		String[] URLs = {"http://","https://","","ftp://", //valid
-				"htp://","http:","http//","://","l;kjafds;","HTTP://",null,"htt:p//", "file://"}; //invalid
+		String[] URLs = {"http://","https://","","ftp://", "HTTP://","HTTPS://", //valid
+				"htp://","http:","http//","://","l;kjafds;",null,"htt:p//", "file://"}; //invalid
 		String[] Domain = {"example.com", "google.com", "test.com","0.0.0.0","192.168.1.1",
 				"example.",".example.com","0.0.0.","0.0.0.0.","","432.234.432.234",null};
 		String[] Port = {":80","",
@@ -296,7 +296,7 @@ public class UrlValidatorTest extends TestCase {
 							//build string
 							String fullURL = URLs[i] + Domain[j] + Port[k] + Path[l] + End[m];
 							//check if valid
-							if((i<3)&&(j<5)&&(k<2)&&(l<4)&&(m<2)) validOutput = true;
+							if((i<5)&&(j<5)&&(k<2)&&(l<4)&&(m<2)) validOutput = true;
 							else validOutput = false;
 							
 							try {
