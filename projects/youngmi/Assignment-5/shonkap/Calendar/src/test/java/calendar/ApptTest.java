@@ -9,6 +9,7 @@ import calendar.Appt;
 
 public class ApptTest {
 	//test CalendarUtil
+	//@Test()			//!!Use for debugging!!
 	@Test(timeout = 4000)
 	public void test_CU() throws Throwable {
 		int days = CalendarUtil.NumDaysInMonth(2018, 0);
