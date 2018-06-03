@@ -277,16 +277,16 @@ public class UrlValidatorTest extends TestCase {
 		String[] URLs = {"http://","https://","","ftp://", "HTTP://","HTTPS://", //valid
 				"htp://","http:","http//","://","l;kjafds;","htt:p//", "file://"}; //invalid
 		int URLs_valid = 5; //Number of valid URLs
-		String[] Domain = {"example.com", "google.com", "test.com","0.0.0.0","192.168.1.1",
+		String[] Domain = {"www.example.com", "example.com", "google.com", "test.com","0.0.0.0", "192.168.1.1",
 				"example.",".example.com","0.0.0.","0.0.0.0.","","432.234.432.234"};
-		int Domain_valid = 5;
-		String[] Port = {":80","",":65200",
+		int Domain_valid = 6;
+		String[] Port = {"",":80",":65200",
 				":ds",":84a",":---"};
 		int Port_valid = 3;
 		String[] Path = {"","/example","/file/path","/",
 				"...","","/....../fdsalkj","//","/../","/.."};
 		int Path_valid = 4;
-		String[] End = {"?do=thing","",
+		String[] End = {"","?do=thing",
 				"?  ?", "^^^^","||","{}"};
 		int End_valid = 2;
 		boolean validOutput;
@@ -322,9 +322,9 @@ public class UrlValidatorTest extends TestCase {
 									if (validOutput) {
 										System.out.println("Wrong invalid: " + fullURL);
 										++incorrect;
-										if(i<URLs_valid) {	//try all schemes
+										if(i<1) {	//try all schemes
 											if(urlValueAll.isValid(fullURL)) {
-												System.out.println("\t\tScheme error");
+												System.out.println("\tScheme error");
 											}
 										}
 									} else { // is supposed to be invalid
