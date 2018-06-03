@@ -27,7 +27,7 @@ public class UrlValidatorTest extends TestCase {
 		int n_valid = 0;	//number of valid
 		
 		try {
-			String[] falseURLs = { "http://oregonstate.%edu", "qwerty", "://lkjfdsa;lkjfdsa",null};
+			String[] falseURLs = { "http://oregonstate.%edu", "qwerty", "://lkjfdsa;lkjfdsa","|||||||||",null};
 			for (int i = 0; i < falseURLs.length; i++) {
 				if (urlValue.isValid(falseURLs[i])) {
 					System.out.println("!!  valid: " + falseURLs[i]);
@@ -282,7 +282,7 @@ public class UrlValidatorTest extends TestCase {
 		String[] Path = {"","/example","/file/path","/",
 				"...","","/....../fdsalkj","//","/../","/..",null};
 		String[] End = {"?do=thing","",
-				"?  ?", "^^^^","|",null};
+				"?  ?", "^^^^","||","{}",null};
 		boolean validOutput;
 		int correct = 0;
 		int incorrect = 0;
