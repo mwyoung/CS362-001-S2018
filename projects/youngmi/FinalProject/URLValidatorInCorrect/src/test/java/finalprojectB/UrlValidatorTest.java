@@ -271,18 +271,24 @@ public class UrlValidatorTest extends TestCase {
 		System.out.println("Starting programming based test");
 		String[] schemes = {"http","https","ftp","HTTP","HTTPS"}; //default
 		UrlValidator urlValue = new UrlValidator(schemes);
+		UrlValidator urlValueAll = new UrlValidator(null,null,UrlValidator.ALLOW_ALL_SCHEMES);
 		
 		//store values
 		String[] URLs = {"http://","https://","","ftp://", "HTTP://","HTTPS://", //valid
-				"htp://","http:","http//","://","l;kjafds;",null,"htt:p//", "file://"}; //invalid
+				"htp://","http:","http//","://","l;kjafds;","htt:p//", "file://"}; //invalid
+		int URLs_valid = 5; //Number of valid URLs
 		String[] Domain = {"example.com", "google.com", "test.com","0.0.0.0","192.168.1.1",
-				"example.",".example.com","0.0.0.","0.0.0.0.","","432.234.432.234",null};
-		String[] Port = {":80","",
-				":ds",":84a",":---",null};
+				"example.",".example.com","0.0.0.","0.0.0.0.","","432.234.432.234"};
+		int Domain_valid = 5;
+		String[] Port = {":80","",":65200",
+				":ds",":84a",":---"};
+		int Port_valid = 3;
 		String[] Path = {"","/example","/file/path","/",
-				"...","","/....../fdsalkj","//","/../","/..",null};
+				"...","","/....../fdsalkj","//","/../","/.."};
+		int Path_valid = 4;
 		String[] End = {"?do=thing","",
-				"?  ?", "^^^^","||","{}",null};
+				"?  ?", "^^^^","||","{}"};
+		int End_valid = 2;
 		boolean validOutput;
 		int correct = 0;
 		int incorrect = 0;
@@ -296,8 +302,12 @@ public class UrlValidatorTest extends TestCase {
 							//build string
 							String fullURL = URLs[i] + Domain[j] + Port[k] + Path[l] + End[m];
 							//check if valid
-							if((i<5)&&(j<5)&&(k<2)&&(l<4)&&(m<2)) validOutput = true;
-							else validOutput = false;
+							if((i<URLs_valid)&&(j<Domain_valid)&&(k<Port_valid)&&(l<Path_valid)&&(m<End_valid)) {
+								validOutput = true;
+							}
+							else {
+								validOutput = false;
+							}
 							
 							try {
 								// test if valid
@@ -312,6 +322,11 @@ public class UrlValidatorTest extends TestCase {
 									if (validOutput) {
 										System.out.println("Wrong invalid: " + fullURL);
 										++incorrect;
+										if(i<URLs_valid) {	//try all schemes
+											if(urlValueAll.isValid(fullURL)) {
+												System.out.println("\t\tScheme error");
+											}
+										}
 									} else { // is supposed to be invalid
 										++correct; // correct
 									}
