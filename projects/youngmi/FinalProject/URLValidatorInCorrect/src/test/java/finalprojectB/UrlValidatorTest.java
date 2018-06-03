@@ -275,19 +275,19 @@ public class UrlValidatorTest extends TestCase {
 		
 		//store values
 		String[] URLs = {"http://","https://","","ftp://", "HTTP://","HTTPS://", //valid
-				"htp://","http:","http//","://","l;kjafds;","htt:p//", "file://"}; //invalid
+				"htp://","http:","http//","://","l;kjafds;","htt:p//", "file://",null}; //invalid
 		int URLs_valid = 5; //Number of valid URLs
 		String[] Domain = {"www.example.com", "example.com", "google.com", "test.com","0.0.0.0", "192.168.1.1",
-				"example.",".example.com","0.0.0.","0.0.0.0.","","432.234.432.234"};
+				"example.",".example.com","0.0.0.","0.0.0.0.","","432.234.432.234",null};
 		int Domain_valid = 6;
 		String[] Port = {"",":80",":65200",
-				":ds",":84a",":---"};
+				":ds",":84a",":---",null};
 		int Port_valid = 3;
 		String[] Path = {"","/example","/file/path","/",
-				"...","","/....../fdsalkj","//","/../","/.."};
+				"...","","/....../fdsalkj","//","/../","/..",null};
 		int Path_valid = 4;
 		String[] End = {"","?do=thing",
-				"?  ?", "^^^^","||","{}"};
+				"?  ?", "^^^^","||","{}",null};
 		int End_valid = 2;
 		boolean validOutput;
 		int correct = 0;
