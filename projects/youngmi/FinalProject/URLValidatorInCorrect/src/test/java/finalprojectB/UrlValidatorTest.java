@@ -94,6 +94,13 @@ public class UrlValidatorTest extends TestCase {
 	public void testManualTest_all() {
 		UrlValidator urlValue = new UrlValidator(null,null,UrlValidator.ALLOW_ALL_SCHEMES);
 		assertTrue(urlValue.isValid("http://www.google.com")); //does work
+		try {
+			if(!urlValue.isValid("https://google.com")) { //does not work	
+				System.out.println("error");
+			}
+		}catch (Exception e) {
+			System.out.println("testManualTest_all error: " + e.getMessage());
+		}
 	}
 	
 	//First Partition testing	
@@ -275,20 +282,20 @@ public class UrlValidatorTest extends TestCase {
 		
 		//store values
 		String[] URLs = {"http://","https://","","ftp://", "HTTP://","HTTPS://", //valid
-				"htp://","http:","http//","://","l;kjafds;","htt:p//", "file://",null}; //invalid
+				"htp://","http:","http//","://","l;kjafds;","htt:p//", "file://","",null}; //invalid
 		int URLs_valid = 5; //Number of valid URLs
 		String[] Domain = {"www.example.com", "example.com", "google.com", "test.com","0.0.0.0", "192.168.1.1",
-				"example.",".example.com","0.0.0.","0.0.0.0.","","432.234.432.234",null};
+				"example.",".example.com","0.0.0.","0.0.0.0.","","432.234.432.234","","www.example.comwww.example.com",null};
 		int Domain_valid = 6;
 		String[] Port = {"",":80",":65200",
 				":ds",":84a",":---",null};
 		int Port_valid = 3;
 		String[] Path = {"","/example","/file/path","/",
-				"...","","/....../fdsalkj","//","/../","/..",null};
+				"...","/....../fdsalkj","//","/../","/..",null};
 		int Path_valid = 4;
 		String[] End = {"","?do=thing",
 				"?  ?", "^^^^","||","{}",null};
-		int End_valid = 2;
+		int End_valid = 3;
 		boolean validOutput;
 		int correct = 0;
 		int incorrect = 0;
