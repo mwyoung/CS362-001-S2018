@@ -86,6 +86,8 @@ public class UrlValidatorTest extends TestCase {
 		//try{}catch(Exception e){}
 		//if(urlValue.isValid("http://oregonstate.com")){System.out.println("valid");} 
 		//else { System.out.println("invalid");}	//testing
+		//RegexValidator regValue = new RegexValidator("com");
+		//UrlValidator urlValue = new UrlValidator(regValue,UrlValidator.ALLOW_ALL_SCHEMES);
 	}
 	public void testManualTest_default() {
 		UrlValidator urlValue = new UrlValidator(null);
@@ -105,6 +107,7 @@ public class UrlValidatorTest extends TestCase {
 		}
 	}
 	
+/////////////////////////////////////////////////////////////////////////
 	//First Partition testing	
 	public void testPartition1(){
 		System.out.println("Starting first partition test, default schemes");
@@ -274,7 +277,8 @@ public class UrlValidatorTest extends TestCase {
 		}
 		assertFalse(urlValue.isValid("ftp://example.com")); //is false
 	}	
-	
+
+/////////////////////////////////////////////////////////////////////
 	//For programming based testing
 	public void testIsValid(){
 		System.out.println("Starting programming based test");
