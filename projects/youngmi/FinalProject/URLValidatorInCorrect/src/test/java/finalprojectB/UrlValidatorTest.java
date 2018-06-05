@@ -300,7 +300,7 @@ public class UrlValidatorTest extends TestCase {
 		int End_valid = 2;
 		boolean validOutput;
 		int correct = 0;
-		int correct_incorrect = 0;
+		int true_invalid = 0;
 		int incorrect = 0;
 		
 		//loop through all strings
@@ -338,7 +338,7 @@ public class UrlValidatorTest extends TestCase {
 											}
 										}
 									} else { // is supposed to be invalid
-										++correct_incorrect; // correct
+										++true_invalid; // correct
 									}
 								}
 							} catch (Exception e) {	//in case of errors, catch output
@@ -351,7 +351,7 @@ public class UrlValidatorTest extends TestCase {
 		}
 		//get results
 		int total = (URLs.length)*(Domain.length)*(Port.length)*(Path.length)*(End.length);
-		System.out.println("Correct: " + correct + " Correct Incorrect: " + correct_incorrect + 
+		System.out.println("Correct: " + correct + " True Invalid: " + true_invalid + 
 				" Incorrect: " + incorrect + " Total: " + total);
 	}	
 	
