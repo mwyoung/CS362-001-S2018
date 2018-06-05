@@ -7,7 +7,7 @@ public class UrlValidatorTest extends TestCase {
 	public UrlValidatorTest(String testName) {
 		super(testName);
 	}
-/*
+
 	//For manual testing
 	public void testManualTest() { 
 		System.out.println("Starting manual tests");
@@ -94,6 +94,8 @@ public class UrlValidatorTest extends TestCase {
 	public void testManualTest_all() {
 		UrlValidator urlValue = new UrlValidator(null,null,UrlValidator.ALLOW_ALL_SCHEMES);
 		assertTrue(urlValue.isValid("http://www.google.com")); //does work
+		assertFalse(urlValue.isValid(null));
+		assertFalse(urlValue.isValid("    "));
 		try {
 			if(!urlValue.isValid("https://google.com")) { //does not work	
 				System.out.println("error");
@@ -272,7 +274,7 @@ public class UrlValidatorTest extends TestCase {
 		}
 		assertFalse(urlValue.isValid("ftp://example.com")); //is false
 	}	
-*/	
+	
 	//For programming based testing
 	public void testIsValid(){
 		System.out.println("Starting programming based test");
@@ -282,22 +284,23 @@ public class UrlValidatorTest extends TestCase {
 		
 		//store values
 		String[] URLs = {"http://","https://","","ftp://", "HTTP://","HTTPS://", //valid
-				"htp://","http:","http//","://","l;kjafds;","htt:p//", "file://","",null}; //invalid
+				"htp://","http:","http//","://","l;kjafds;","htt:p//", "file://","",null,"^#||","  "}; //invalid
 		int URLs_valid = 5; //Number of valid URLs
 		String[] Domain = {"www.example.com", "example.com", "EXAMPLE.com","google.com", "test.com","0.0.0.0", "192.168.1.1",
-				"example.",".example.com","0.0.0.","0.0.0.0.","","432.234.432.234","","www.example.comwww.example.com",null};
+				"example.",".example.com","0.0.0.","0.0.0.0.","","432.234.432.234","","www.example.comwww.example.com",null,"  "};
 		int Domain_valid = 7;
 		String[] Port = {"",":80",":65200",
-				":ds",":84a",":---",null};
+				":ds",":84a",":---",null,"  ",":67890",":-1"};
 		int Port_valid = 3;
 		String[] Path = {"","/example","/file/path","/",
-				"...","/....../fdsalkj","//","/../","/..",null};
+				"...","/....../fdsalkj","//","/../","/..",null,"  "};
 		int Path_valid = 4;
 		String[] End = {"","?do=thing",
-				"?  ?", "^^^^","||","{}",null};
+				"?  ?", "^^^^","||","{}",null,"  "};
 		int End_valid = 2;
 		boolean validOutput;
 		int correct = 0;
+		int correct_incorrect = 0;
 		int incorrect = 0;
 		
 		//loop through all strings
@@ -335,7 +338,7 @@ public class UrlValidatorTest extends TestCase {
 											}
 										}
 									} else { // is supposed to be invalid
-										++correct; // correct
+										++correct_incorrect; // correct
 									}
 								}
 							} catch (Exception e) {	//in case of errors, catch output
@@ -348,8 +351,8 @@ public class UrlValidatorTest extends TestCase {
 		}
 		//get results
 		int total = (URLs.length)*(Domain.length)*(Port.length)*(Path.length)*(End.length);
-		System.out.println("Correct: " + correct + " Incorrect: " + incorrect + 
-				" Total: " + total);
+		System.out.println("Correct: " + correct + " Correct Incorrect: " + correct_incorrect + 
+				" Incorrect: " + incorrect + " Total: " + total);
 	}	
 	
 }
