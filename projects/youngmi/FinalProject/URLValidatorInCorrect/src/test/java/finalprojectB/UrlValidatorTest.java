@@ -7,7 +7,7 @@ public class UrlValidatorTest extends TestCase {
 	public UrlValidatorTest(String testName) {
 		super(testName);
 	}
-
+/*
 	//For manual testing
 	public void testManualTest() { 
 		System.out.println("Starting manual tests");
@@ -272,7 +272,7 @@ public class UrlValidatorTest extends TestCase {
 		}
 		assertFalse(urlValue.isValid("ftp://example.com")); //is false
 	}	
-	
+*/	
 	//For programming based testing
 	public void testIsValid(){
 		System.out.println("Starting programming based test");
@@ -284,9 +284,9 @@ public class UrlValidatorTest extends TestCase {
 		String[] URLs = {"http://","https://","","ftp://", "HTTP://","HTTPS://", //valid
 				"htp://","http:","http//","://","l;kjafds;","htt:p//", "file://","",null}; //invalid
 		int URLs_valid = 5; //Number of valid URLs
-		String[] Domain = {"www.example.com", "example.com", "google.com", "test.com","0.0.0.0", "192.168.1.1",
+		String[] Domain = {"www.example.com", "example.com", "EXAMPLE.com","google.com", "test.com","0.0.0.0", "192.168.1.1",
 				"example.",".example.com","0.0.0.","0.0.0.0.","","432.234.432.234","","www.example.comwww.example.com",null};
-		int Domain_valid = 6;
+		int Domain_valid = 7;
 		String[] Port = {"",":80",":65200",
 				":ds",":84a",":---",null};
 		int Port_valid = 3;
@@ -295,7 +295,7 @@ public class UrlValidatorTest extends TestCase {
 		int Path_valid = 4;
 		String[] End = {"","?do=thing",
 				"?  ?", "^^^^","||","{}",null};
-		int End_valid = 3;
+		int End_valid = 2;
 		boolean validOutput;
 		int correct = 0;
 		int incorrect = 0;
@@ -351,4 +351,5 @@ public class UrlValidatorTest extends TestCase {
 		System.out.println("Correct: " + correct + " Incorrect: " + incorrect + 
 				" Total: " + total);
 	}	
+	
 }
