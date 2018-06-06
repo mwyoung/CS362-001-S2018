@@ -293,14 +293,15 @@ public class UrlValidatorTest extends TestCase {
 				"htp://","http:","http//","://","l;kjafds;","htt:p//", "file://","",null,"^#||","  "}; //invalid
 		int URLs_valid = 5; //Number of valid URLs
 		String[] Domain = {"www.example.com", "example.com", "EXAMPLE.com","google.com", "test.com","0.0.0.0", "192.168.1.1",
-				"example.",".example.com","0.0.0.","0.0.0.0.","","432.234.432.234","","www.example.comwww.example.com",null,"  "};
+				"example.",".example.com","0.0.0.","0.0.0.0.","","432.234.432.234","1..3.4","1.2.a.b","a.b.c.d","1.#.3.4","",
+				"www.example.comwww.example.com",null,"  ",";fdsa;fdsa;","t.e.s.t.url."};
 		int Domain_valid = 7;
 		String[] Port = {"",":80",":65200",
 				":ds",":84a",":---",null,"  ",":67890",":-1"};
 		int Port_valid = 3;
-		String[] Path = {"","/example","/file/path","/",
+		String[] Path = {"","/example","/example/","/file/path","/",
 				"...","/....../fdsalkj","//","/../","/..",null,"  "};
-		int Path_valid = 4;
+		int Path_valid = 5;
 		String[] End = {"","?do=thing",
 				"?  ?", "^^^^","||","{}",null,"  "};
 		int End_valid = 2;
