@@ -131,7 +131,7 @@ public class UrlValidatorTest extends TestCase {
 		System.out.println("Starting first partition test, default schemes false");
 		try {
 			String[] falseURLs = {"http:www.example.com", "htp://example.com", "http//example.com",
-					"http://www.example.", "ftp://example.com.", "http://example./"};
+					"http://www.example.", "ftp://example.com.", "http://example./", null};
 			for (int i = 0; i < falseURLs.length; i++) {
 				if (urlValue.isValid(falseURLs[i])) {
 					System.out.println("    valid: " + falseURLs[i]);
@@ -411,20 +411,20 @@ public class UrlValidatorTest extends TestCase {
 		
 		//store values
 		String[] URLs = {"http://","https://","","ftp://", "HTTP://","HTTPS://", //valid
-				"htp://","http:","http//","://","l;kjafds;","htt:p//", "file://","",null,"^#||","  "}; //invalid
+				"htp://","http:","http//","://","l;kjafds;","htt:p//", "file://","","^#||","  ",null}; //invalid
 		int URLs_valid = 5; //Number of valid URLs
 		String[] Domain = {"www.example.com", "example.com", "EXAMPLE.com","google.com", "test.com","0.0.0.0", "192.168.1.1",
 				"example.",".example.com","0.0.0.","0.0.0.0.","","432.234.432.234","1..3.4","1.2.a.b","a.b.c.d","1.#.3.4","",
-				"www.example.comwww.example.com",null,"  ",";fdsa;fdsa;","t.e.s.t.url."};
+				"www.example.comwww.example.com","  ",";fdsa;fdsa;","t.e.s.t.url.",null};
 		int Domain_valid = 7;
 		String[] Port = {"",":80",":65200",
-				":ds",":84a",":---",null,"  ",":67890",":-1",":0"};
+				":ds",":84a",":---","  ",":67890",":-1",":0",null};
 		int Port_valid = 3;
 		String[] Path = {"","/example","/example/","/file/path","/","/$123",
-				"...","/....../fdsalkj","//","/../","/..",null,"  ",";;"};
+				"...","/....../fdsalkj","//","/../","/..","  ",";;",null};
 		int Path_valid = 5;
 		String[] End = {"","?do=thing","?do=thing&view=all",
-				"?  ?", "^^^^","||","{}",null,"  "};
+				"?  ?", "^^^^","||","{}","  ",null};
 		int End_valid = 3;
 		boolean validOutput;
 		int correct = 0;
@@ -432,13 +432,12 @@ public class UrlValidatorTest extends TestCase {
 		int incorrect = 0;
 		
 		//loop through all strings
-		for(int i=0; i<URLs.length-1;i++) {
-			for(int j=0; j<Domain.length-1;j++) {
-				for(int k=0; k<Port.length-1;k++) {
-					for(int l=0; l<Path.length-1;l++) {
-						for(int m=0; m<End.length-1;m++) {
-							//build string
-							String fullURL = URLs[i] + Domain[j] + Port[k] + Path[l] + End[m];
+		for(int i=0; i<URLs.length;i++) {
+			for(int j=0; j<Domain.length;j++) {
+				for(int k=0; k<Port.length;k++) {
+					for(int l=0; l<Path.length;l++) {
+						for(int m=0; m<End.length;m++) {
+							String fullURL = URLs[i] + Domain[j] + Port[k] + Path[l] + End[m]; //build string
 							//check if valid
 							if((i<URLs_valid)&&(j<Domain_valid)&&(k<Port_valid)&&(l<Path_valid)&&(m<End_valid)) {
 								validOutput = true;
@@ -448,8 +447,7 @@ public class UrlValidatorTest extends TestCase {
 							}
 							
 							try {
-								// test if valid
-								if (urlValue.isValid(fullURL)) {
+								if (urlValue.isValid(fullURL)) { // test if valid
 									if (validOutput) {
 										++correct; // good to go
 									} else {
@@ -482,4 +480,5 @@ public class UrlValidatorTest extends TestCase {
 		System.out.println("Correct: " + correct + " True Invalid: " + true_invalid + 
 				" Incorrect: " + incorrect + " Total: " + total);
 	}	
+	
 }
