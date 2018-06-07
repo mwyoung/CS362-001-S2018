@@ -127,35 +127,28 @@ public class UrlValidatorTest extends TestCase {
 		} catch (Exception e) {
 			System.out.println("TrueURL error: " + e.getMessage());
 		}
-	}
-	
-	public void testPartition1_false(){
+
 		System.out.println("Starting first partition test, default schemes false");
-		//String[] schemes = {"http","https","ftp"}; //default
-		UrlValidator urlValue = new UrlValidator(null);
 		try {
-			String[] falseURLs = { "http:www.example.com", "htp://example.com", "http//example.com",
-					"http://www.example.", "ftp://example.com.", "http://example./" };
+			String[] falseURLs = {"http:www.example.com", "htp://example.com", "http//example.com",
+					"http://www.example.", "ftp://example.com.", "http://example./"};
 			for (int i = 0; i < falseURLs.length; i++) {
 				if (urlValue.isValid(falseURLs[i])) {
 					System.out.println("    valid: " + falseURLs[i]);
 				} else {
 					System.out.println("!!invalid: " + falseURLs[i]);
 				}
-				//assertTrue(trueURLs[i],urlValue.isValid(trueURLs[i]));
 			} 
 		} catch (Exception e) {
 			System.out.println("TrueURL error: " + e.getMessage());
 		}
 	}
-	
-	//First Partition testing	
 	public void testPartition1_all(){
 		System.out.println("Starting first partition test, all schemes");
 		//String[] schemes = {"http","https","ftp"}; //default
 		UrlValidator urlValue = new UrlValidator(null,null,UrlValidator.ALLOW_ALL_SCHEMES);
 		try {
-			String[] trueURLs = { "http://www.google.com", "http://example.com", "http://example.com",
+			String[] trueURLs = {"http://www.google.com", "http://example.com", "http://example.com",
 					"http://www.example.com", "http://example.com/"};
 			for (int i = 0; i < trueURLs.length; i++) {
 				if (urlValue.isValid(trueURLs[i])) {
@@ -163,36 +156,104 @@ public class UrlValidatorTest extends TestCase {
 				} else {
 					System.out.println("!!invalid: " + trueURLs[i]);
 				}
-				//assertTrue(trueURLs[i],urlValue.isValid(trueURLs[i]));
 			} 
 		} catch (Exception e) {
 			System.out.println("TrueURL error: " + e.getMessage());
 		}
-		
 	}
-	public void testPartition1_allftp(){
-		System.out.println("Starting first partition test, ftp");
-		String[] schemes = {"http","https","ftp"}; //default
-		UrlValidator urlValue = new UrlValidator(schemes);
-		//UrlValidator urlValue = new UrlValidator(null,null,UrlValidator.ALLOW_ALL_SCHEMES);
+	public void testPartition1_all_other(){
+		System.out.println("Starting first partition test, https/ftp");
+		UrlValidator urlValue = new UrlValidator(null,null,UrlValidator.ALLOW_ALL_SCHEMES);
 		try {
-			String[] trueURLs = { "ftp://example.com", "ftp://www.example.com","ftp://www.example.com/" };
+			String[] trueURLs = {"https://example.com", "https://www.example.com","https://www.example.com/",
+					"ftp://example.com", "ftp://www.example.com","ftp://www.example.com/" };
 			for (int i = 0; i < trueURLs.length; i++) {
 				if (urlValue.isValid(trueURLs[i])) {
 					System.out.println("    valid: " + trueURLs[i]);
 				} else {
 					System.out.println("!!invalid: " + trueURLs[i]);
 				}
-				//assertTrue(trueURLs[i],urlValue.isValid(trueURLs[i]));
 			} 
 		} catch (Exception e) {
 			System.out.println("TrueURL error: " + e.getMessage());
 		}
 	}
 	
-	//Second Partition testing - URL domains
-	public void testPartition2(){
-		System.out.println("Starting second partition test");
+	//Second Partition testing - IP schemes
+	public void testPartition2() {
+		System.out.println("Starting second partition IP test, default schemes");
+		// String[] schemes = {"http","https","ftp"}; //default
+		UrlValidator urlValue = new UrlValidator(null);
+		try {
+			String[] trueURLs = { "http://0.0.0.0", "http://0.0.0.0", "http://0.0.0.0:0", "http://0.0.0.0:65535",
+					"ftp://0.0.0.0:0", "ftp://255.com/t123" };
+			for (int i = 0; i < trueURLs.length; i++) {
+				if (urlValue.isValid(trueURLs[i])) {
+					System.out.println("    valid IP: " + trueURLs[i]);
+				} else {
+					System.out.println("!!invalid IP: " + trueURLs[i]);
+				}
+			}
+		} catch (Exception e) {
+			System.out.println("TrueURL IP error: " + e.getMessage());
+		}
+		
+		System.out.println("Starting second partition IP test, default schemes false");
+		try {
+			String[] falseURLs = { "http:0.0.0.0:0", "htp://0.0.0.0:0", "http//0.0.0.0:0", "http://0.0.0.0:0.",
+					"ftp://0.0.0.0:0", "http://0.0.0.0./" };
+			for (int i = 0; i < falseURLs.length; i++) {
+				if (urlValue.isValid(falseURLs[i])) {
+					System.out.println("    valid IP: " + falseURLs[i]);
+				} else {
+					System.out.println("!!invalid IP: " + falseURLs[i]);
+				}
+			}
+		} catch (Exception e) {
+			System.out.println("TrueURL IP error: " + e.getMessage());
+		}
+	}
+	public void testPartition2_all() {
+		System.out.println("Starting second partition IP test, all schemes");
+		// String[] schemes = {"http","https","ftp"}; //default
+		UrlValidator urlValue = new UrlValidator(null, null, UrlValidator.ALLOW_ALL_SCHEMES);
+		try {
+			String[] trueURLs = { "http://255.255.255.255/$23", "http://255.255.255.255:0",
+					"http://255.255.255.255?action=edit&mode=up", "http://0.0.0.0:80/test1/file?action=view",
+					"http://255.com/t123"};
+			for (int i = 0; i < trueURLs.length; i++) {
+				if (urlValue.isValid(trueURLs[i])) {
+					System.out.println("    valid IP: " + trueURLs[i]);
+				} else {
+					System.out.println("!!invalid IP: " + trueURLs[i]);
+				}
+			}
+		} catch (Exception e) {
+			System.out.println("TrueURL IP error: " + e.getMessage());
+		}
+	}
+	public void testPartition2_all_other(){
+		System.out.println("Starting second partition test IP, https/ftp");
+		UrlValidator urlValue = new UrlValidator(null,null,UrlValidator.ALLOW_ALL_SCHEMES);
+		try {
+			String[] trueURLs = {"https://0.0.0.0:80/test1/file?action=view","https://0.0.0.0:65535/test1?action=edit&mode=up", 
+					"https://255.255.255.255:65535/$23", "ftp://0.0.0.0:80/test1/file?action=view",
+					"ftp://0.0.0.0:65535/test1?action=edit&mode=up", "ftp://255.255.255.255:65535/$23" };
+			for (int i = 0; i < trueURLs.length; i++) {
+				if (urlValue.isValid(trueURLs[i])) {
+					System.out.println("    valid: " + trueURLs[i]);
+				} else {
+					System.out.println("!!invalid: " + trueURLs[i]);
+				}
+			} 
+		} catch (Exception e) {
+			System.out.println("TrueURL error: " + e.getMessage());
+		}
+	}
+	
+	//Third Partition testing - URL domains
+	public void testPartition3(){
+		System.out.println("Starting third partition test URL - domains");
 		String[] schemes = {"http","https"}; //default
 		UrlValidator urlValue = new UrlValidator(schemes);
 		try {
@@ -204,17 +265,12 @@ public class UrlValidatorTest extends TestCase {
 				} else {
 					System.out.println("!!invalid: " + trueURLs[i]);
 				}
-				//assertTrue(trueURLs[i],urlValue.isValid(trueURLs[i]));
 			} 
 		} catch (Exception e) {
 			System.out.println("TrueURL error: " + e.getMessage());
 		}
-		assertFalse(urlValue.isValid("ftp://example.com")); //is false
-	}
-	public void testPartition2_false(){
-		System.out.println("Starting second partition test false");
-		String[] schemes = {"http","https"}; //default
-		UrlValidator urlValue = new UrlValidator(schemes);
+		
+		System.out.println("Starting third partition test false");
 		try {
 			String[] falseURLs = { "http:www.example.com", "htp://example.com", "http//example.com",
 					"https//example.com","http://www.example.", "https://example.", "http://example./",
@@ -225,7 +281,6 @@ public class UrlValidatorTest extends TestCase {
 				} else {
 					System.out.println("  invalid: " + falseURLs[i]);
 				}
-				//assertTrue(trueURLs[i],urlValue.isValid(trueURLs[i]));
 			} 
 		} catch (Exception e) {
 			System.out.println("FalseURL error: " + e.getMessage());
@@ -233,57 +288,123 @@ public class UrlValidatorTest extends TestCase {
 		assertFalse(urlValue.isValid("ftp://example.com")); //is false
 	}
 	
-	//third Partition testing - URL paths and fragments
-	public void testPartition3(){
-		System.out.println("Starting third partition test");
+	//fourth partition testing - IP domains
+	public void testPartition4(){
+		System.out.println("Starting fourth partition IP test - domains");
 		String[] schemes = {"http","https"}; //default
 		UrlValidator urlValue = new UrlValidator(schemes);
 		try {
-			String[] falseURLs = { "http://www.example.com/", "http://example.com:80", 
+			String[] trueURLs = { "http://0.0.0.0:80", "http://0.0.0.0:65535/t123", "http://255.255.255.255:80/$23",
+					"http://255.com:80/test1", "http://255.com" };
+			for (int i = 0; i < trueURLs.length; i++) {
+				if (urlValue.isValid(trueURLs[i])) {
+					System.out.println("    valid IP: " + trueURLs[i]);
+				} else {
+					System.out.println("!!invalid IP: " + trueURLs[i]);
+				}
+			} 
+		} catch (Exception e) {
+			System.out.println("TrueURL IP error: " + e.getMessage());
+		}
+
+		System.out.println("Starting fourth partition IP test false");
+		try {
+			String[] falseURLs = { "http:0.0.0.0:80.com", "htp://0.0.0.0:80", "http//0.0.0.0.com",
+					"https//0.0.0.0:80","http://0.0.0.0:80.", "https://0.0.0.0.", "http://0.0.0.0./" };
+			for (int i = 0; i < falseURLs.length; i++) {
+				if (urlValue.isValid(falseURLs[i])) {
+					System.out.println("    valid IP: " + falseURLs[i]);
+				} else {
+					System.out.println("!!invalid IP: " + falseURLs[i]);
+				}
+			} 
+		} catch (Exception e) {
+			System.out.println("TrueURL IP error: " + e.getMessage());
+		}
+	}
+	
+	//fifth Partition testing - URL paths and fragments
+	public void testPartition5(){
+		System.out.println("Starting fifth partition test URL test - path fragments");
+		String[] schemes = {"http","https"}; //default
+		UrlValidator urlValue = new UrlValidator(schemes);
+		try {
+			String[] trueURLs = { "http://www.example.com/", "http://example.com:80", 
 					"http://example.com/123", "http://www.example.com/abc/", 
 					"http://example.com/abc/test?do=view","http://example.com?do=view",
 					"http://example.com/fdlkjfads"};
-			for (int i = 0; i < falseURLs.length; i++) {
-				if (urlValue.isValid(falseURLs[i])) {
-					System.out.println("    valid: " + falseURLs[i]);
+			for (int i = 0; i < trueURLs.length; i++) {
+				if (urlValue.isValid(trueURLs[i])) {
+					System.out.println("    valid: " + trueURLs[i]);
 				} else {
-					System.out.println("!!invalid: " + falseURLs[i]);
+					System.out.println("!!invalid: " + trueURLs[i]);
 				}
-				//assertTrue(trueURLs[i],urlValue.isValid(trueURLs[i]));
 			} 
 		} catch (Exception e) {
 			System.out.println("TrueURL error: " + e.getMessage());
 		}
-		assertFalse(urlValue.isValid("ftp://example.com")); //is false
-	}	
-	public void testPartition3_false(){
-		System.out.println("Starting third partition test false");
-		String[] schemes = {"http","https"}; //default
-		UrlValidator urlValue = new UrlValidator(schemes);
+
+		System.out.println("Starting fifth partition test false");
 		try {
-			String[] trueURLs = { "http//www.example.com/", "http://example.com:", 
+			String[] falseURLs = { "http//www.example.com/", "http://example.com:", 
 					"http://.com/123", "http://.example.com/abc/", 
 					"http://example.com/abc/?do=view  ","http://example.com ?do=view",
 					"http://example.com/fdlkjfads;;"};
-			for (int i = 0; i < trueURLs.length; i++) {
-				if (urlValue.isValid(trueURLs[i])) {
-					System.out.println("!!  valid: " + trueURLs[i]);
+			for (int i = 0; i < falseURLs.length; i++) {
+				if (urlValue.isValid(falseURLs[i])) {
+					System.out.println("!!  valid: " + falseURLs[i]);
 				} else {
-					System.out.println("  invalid: " + trueURLs[i]);
+					System.out.println("  invalid: " + falseURLs[i]);
 				}
-				//assertTrue(trueURLs[i],urlValue.isValid(trueURLs[i]));
 			} 
 		} catch (Exception e) {
 			System.out.println("falseURL error: " + e.getMessage());
 		}
-		assertFalse(urlValue.isValid("ftp://example.com")); //is false
 	}	
-	//fourth partition testing - IP addresses
+	
+	//sixth Partition testing - URL paths and fragments
+	public void testPartition6(){
+		System.out.println("Starting sixth partition IP test - path fragments");
+		String[] schemes = {"http","https"}; //default
+		UrlValidator urlValue = new UrlValidator(schemes);
+		try {
+			String[] trueURLs = { "http://0.0.0.0:80/$23", "http://0.0.0.0:80", 
+					"http://0.0.0.0:65535/$23?action=edit&mode=up", "http://0.0.0.0/t123?action=view", 
+					"http://255.255.255.255/$23","http://255.255.255.255/test1/file?action=edit&mode=up",
+					"http://255.com:80/test1?action=view"};
+			for (int i = 0; i < trueURLs.length; i++) {
+				if (urlValue.isValid(trueURLs[i])) {
+					System.out.println("    valid IP: " + trueURLs[i]);
+				} else {
+					System.out.println("!!invalid IP: " + trueURLs[i]);
+				}
+			} 
+		} catch (Exception e) {
+			System.out.println("TrueURL IP error: " + e.getMessage());
+		}
+
+		System.out.println("Starting sixth partition IP test false");
+		try {
+			String[] falseURLs = { "http//0.0.0.0/", "http://0.0.0.0.com:", 
+					"http://.com/123", "http://.0.0.0.0.com/abc/", 
+					"http://255.255.255.255.com/abc/?do=view  ","http://0.0.0.0?do=view",
+					"http://255.255.255.255.com/fdlkjfads"};
+			for (int i = 0; i < falseURLs.length; i++) {
+				if (urlValue.isValid(falseURLs[i])) {
+					System.out.println("    valid IP: " + falseURLs[i]);
+				} else {
+					System.out.println("!!invalid IP: " + falseURLs[i]);
+				}
+			} 
+		} catch (Exception e) {
+			System.out.println("TrueURL IP error: " + e.getMessage());
+		}
+	}
 
 /////////////////////////////////////////////////////////////////////
 	//For programming based testing
 	public void testIsValid(){
-		System.out.println("/nStarting programming based test");
+		System.out.println("\n" + "Starting programming based test");
 		String[] schemes = {"http","https","ftp","HTTP","HTTPS"}; //default
 		UrlValidator urlValue = new UrlValidator(schemes);
 		UrlValidator urlValueAll = new UrlValidator(null,null,UrlValidator.ALLOW_ALL_SCHEMES);
@@ -361,5 +482,4 @@ public class UrlValidatorTest extends TestCase {
 		System.out.println("Correct: " + correct + " True Invalid: " + true_invalid + 
 				" Incorrect: " + incorrect + " Total: " + total);
 	}	
-	
 }
