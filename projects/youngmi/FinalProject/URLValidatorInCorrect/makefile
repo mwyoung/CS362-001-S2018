@@ -9,9 +9,6 @@ main:
 	mvn clean
 	mvn compile
 
-run: main
-	java -cp ./target/classes/ calendar.CalendarMain
-
 jacoco: report
 report:
 	mvn jacoco:report
