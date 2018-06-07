@@ -212,14 +212,14 @@ public class UrlValidatorTest extends TestCase {
 		} catch (Exception e) {
 			System.out.println("TrueURL IP error: " + e.getMessage());
 		}
-	}
+	} 
 	public void testPartition2_all() {
 		System.out.println("Starting second partition IP test, all schemes");
 		// String[] schemes = {"http","https","ftp"}; //default
 		UrlValidator urlValue = new UrlValidator(null, null, UrlValidator.ALLOW_ALL_SCHEMES);
 		try {
-			String[] trueURLs = { "http://255.255.255.255/$23", "http://255.255.255.255:0",
-					"http://255.255.255.255?action=edit&mode=up", "http://0.0.0.0:80/test1/file?action=view",
+			String[] trueURLs = {"http://255.255.255.255/$23", "http://255.255.255.255:80",
+					"http://255.255.255.255?do=thing&view=all", "http://0.0.0.0:80/test1/file?action=view",
 					"http://255.com/t123"};
 			for (int i = 0; i < trueURLs.length; i++) {
 				if (urlValue.isValid(trueURLs[i])) {
@@ -236,9 +236,9 @@ public class UrlValidatorTest extends TestCase {
 		System.out.println("Starting second partition test IP, https/ftp");
 		UrlValidator urlValue = new UrlValidator(null,null,UrlValidator.ALLOW_ALL_SCHEMES);
 		try {
-			String[] trueURLs = {"https://0.0.0.0:80/test1/file?action=view","https://0.0.0.0:65535/test1?action=edit&mode=up", 
+			String[] trueURLs = {"https://0.0.0.0:80/test1/file?action=view","https://0.0.0.0:65535/test1?do=thing&view=all", 
 					"https://255.255.255.255:65535/$23", "ftp://0.0.0.0:80/test1/file?action=view",
-					"ftp://0.0.0.0:65535/test1?action=edit&mode=up", "ftp://255.255.255.255:65535/$23" };
+					"ftp://0.0.0.0:65535/test1?do=thing&view=all", "ftp://255.255.255.255:65535/$23" };
 			for (int i = 0; i < trueURLs.length; i++) {
 				if (urlValue.isValid(trueURLs[i])) {
 					System.out.println("    valid: " + trueURLs[i]);
@@ -249,7 +249,7 @@ public class UrlValidatorTest extends TestCase {
 		} catch (Exception e) {
 			System.out.println("TrueURL error: " + e.getMessage());
 		}
-	}
+	} 
 	
 	//Third Partition testing - URL domains
 	public void testPartition3(){
@@ -348,7 +348,7 @@ public class UrlValidatorTest extends TestCase {
 		try {
 			String[] falseURLs = { "http//www.example.com/", "http://example.com:", 
 					"http://.com/123", "http://.example.com/abc/", 
-					"http://example.com/abc/?do=view  ","http://example.com ?do=view",
+					"http://example.com/abc;/?do=view  ","http://example.com ?do=view",
 					"http://example.com/fdlkjfads;;"};
 			for (int i = 0; i < falseURLs.length; i++) {
 				if (urlValue.isValid(falseURLs[i])) {
@@ -370,7 +370,7 @@ public class UrlValidatorTest extends TestCase {
 		try {
 			String[] trueURLs = { "http://0.0.0.0:80/$23", "http://0.0.0.0:80", 
 					"http://0.0.0.0:65535/$23?action=edit&mode=up", "http://0.0.0.0/t123?action=view", 
-					"http://255.255.255.255/$23","http://255.255.255.255/test1/file?action=edit&mode=up",
+					"http://255.255.255.255/$23","http://255.255.255.255/test1/file?do=thing&view=all",
 					"http://255.com:80/test1?action=view"};
 			for (int i = 0; i < trueURLs.length; i++) {
 				if (urlValue.isValid(trueURLs[i])) {
@@ -399,7 +399,7 @@ public class UrlValidatorTest extends TestCase {
 		} catch (Exception e) {
 			System.out.println("TrueURL IP error: " + e.getMessage());
 		}
-	}
+	} 
 
 /////////////////////////////////////////////////////////////////////
 	//For programming based testing
@@ -418,14 +418,14 @@ public class UrlValidatorTest extends TestCase {
 				"www.example.comwww.example.com",null,"  ",";fdsa;fdsa;","t.e.s.t.url."};
 		int Domain_valid = 7;
 		String[] Port = {"",":80",":65200",
-				":ds",":84a",":---",null,"  ",":67890",":-1"};
+				":ds",":84a",":---",null,"  ",":67890",":-1",":0"};
 		int Port_valid = 3;
-		String[] Path = {"","/example","/example/","/file/path","/",
-				"...","/....../fdsalkj","//","/../","/..",null,"  "};
+		String[] Path = {"","/example","/example/","/file/path","/","/$123",
+				"...","/....../fdsalkj","//","/../","/..",null,"  ",";;"};
 		int Path_valid = 5;
-		String[] End = {"","?do=thing",
+		String[] End = {"","?do=thing","?do=thing&view=all",
 				"?  ?", "^^^^","||","{}",null,"  "};
-		int End_valid = 2;
+		int End_valid = 3;
 		boolean validOutput;
 		int correct = 0;
 		int true_invalid = 0;
