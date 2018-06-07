@@ -219,7 +219,7 @@ public class UrlValidatorTest extends TestCase {
 		UrlValidator urlValue = new UrlValidator(null, null, UrlValidator.ALLOW_ALL_SCHEMES);
 		try {
 			String[] trueURLs = {"http://255.255.255.255/$23", "http://255.255.255.255:80",
-					"http://255.255.255.255?do=thing&view=all", "http://0.0.0.0:80/test1/file?action=view",
+					"http://255.255.255.255", "http://0.0.0.0:80",
 					"http://255.com/t123"};
 			for (int i = 0; i < trueURLs.length; i++) {
 				if (urlValue.isValid(trueURLs[i])) {
@@ -236,9 +236,9 @@ public class UrlValidatorTest extends TestCase {
 		System.out.println("Starting second partition test IP, https/ftp");
 		UrlValidator urlValue = new UrlValidator(null,null,UrlValidator.ALLOW_ALL_SCHEMES);
 		try {
-			String[] trueURLs = {"https://0.0.0.0:80/test1/file?action=view","https://0.0.0.0:65535/test1?do=thing&view=all", 
-					"https://255.255.255.255:65535/$23", "ftp://0.0.0.0:80/test1/file?action=view",
-					"ftp://0.0.0.0:65535/test1?do=thing&view=all", "ftp://255.255.255.255:65535/$23" };
+			String[] trueURLs = {"https://0.0.0.0:80/test1/","https://0.0.0.0:65535", 
+					"https://255.255.255.255:65535/$23", "ftp://0.0.0.0:80/test1/",
+					"ftp://0.0.0.0:65535/test1", "ftp://255.255.255.255:65535/$23" };
 			for (int i = 0; i < trueURLs.length; i++) {
 				if (urlValue.isValid(trueURLs[i])) {
 					System.out.println("    valid: " + trueURLs[i]);
